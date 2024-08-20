@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto</title>
+    <link rel="stylesheet" href="CSS/global.css">
+    <script src="JS/jquery.js"></script>
+
+    <script src="JS/sweetalert2.js"></script>
+    <link rel="stylesheet" href="CSS/sweetalert2.css">
+</head>
+
+<style>
+    body {
+        background-color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    body div.auth {
+        text-align: center;
+        background-color: #c0c0c0;
+        padding: 5vw;
+        border-radius: 5vw;
+    }
+
+    form {
+        text-align: center;
+    }
+
+    form input {
+        font-size: 14pt;
+    }
+
+    .register {
+        display: none;
+    }
+</style>
+
+<body>
+    <div class="auth login">
+        <h1>Login</h1>
+        <form method="POST" id="login">
+            <br>
+            <input type="text" name="user" placeholder="Usuário/Email: ">
+            <br><br>
+            <input type="password" name="password" placeholder="Senha: ">
+            <br><br>
+            <button style="width: 100%; font-size: 18pt;">Entrar</button>
+            <br><br>
+        </form>
+        <button onclick="$('.login').fadeOut(0);$('.register').fadeIn(400)"
+            style="width: 100%; font-size: 18pt;">TROCA</button>
+    </div>
+
+    <div class="auth register">
+        <h1>Registar</h1>
+        <form method="POST" id="register">
+            <br>
+            <input type="text" name="user" placeholder="Usuário: ">
+            <br><br>
+            <input type="text" name="telefone" placeholder="Telefone: ">
+            <br><br>
+            <input type="text" name="cnpj" placeholder="CNPJ: ">
+            <br><br>
+            <input type="email" name="email" placeholder="Email: ">
+            <br><br>
+            <input type="password" name="pass" placeholder="Senha: ">
+            <br><br>
+            <input type="password" name="word" placeholder="Confirme a senha: ">
+            <br><br>
+            <button style="width: 100%; font-size: 18pt;">Cadastrar</button>
+            <br><br>
+        </form>
+        <button onclick="$('.register').fadeOut(0);$('.login').fadeIn(400)"
+            style="width: 100%; font-size: 18pt;">TROCA</button>
+    </div>
+
+    <script>
+        $('#login').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: 'SRC/login.php',
+                data: $('#login').serialize(),
+                success: function (data) {
+                    location.href = './';
+                },
+                error: function (error) {
+                    console.log(error);
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: error.statusText,
+                        icon: 'error',
+                        confirmButtonText: 'Tentar novamente'
+                    })
+                }
+            });
+        });
+
+        $('#register').on('submit', function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: 'SRC/register.php',
+                data: $('#register').serialize(),
+                success: function (data) {
+                    location.href = "./";
+                },
+                error: function (error) {
+                    console.log(error);
+                    Swal.fire({
+                        title: 'Algo não está bem',
+                        text: error.statusText,
+                        icon: 'error',
+                        confirmButtonText: 'Tentar novamente'
+                    })
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
