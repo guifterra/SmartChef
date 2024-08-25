@@ -6,7 +6,7 @@ if (!$con) {
     exit();
 }
 
-$sql = file_get_contents('sql.sql');
+$sql = file_get_contents('pi.sql');
 
 // Execute as consultas SQL
 $queries = explode(';', $sql);

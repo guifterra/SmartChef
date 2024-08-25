@@ -1,85 +1,115 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto</title>
-    <link rel="stylesheet" href="CSS/global.css">
-    <script src="JS/jquery.js"></script>
-
-    <script src="JS/sweetalert2.js"></script>
+    <title>SmartChef</title>
     <link rel="stylesheet" href="CSS/sweetalert2.css">
+    <link href="Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/login.css">
 </head>
+<body class="tela-login">
 
-<style>
-    body {
-        background-color: #000000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
+    <div class="container d-flex">
+        <div class="">
+            
+            <div class="login row">
+                    <!-- Lado esquerdo -->
+            <div class="col-lg-5 col-12 formulario form-registrar">
+                <div class="form-container">
+                    <form method="POST" id="login">
+                        <h2>Login</h2>
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuário</label>
+                            <input type="text" name="user" class="form-control" placeholder="Usuário/Email: " required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Senha</label>
+                            <input type="password" class="form-control" name="password" placeholder="Senha: " required>
+                        </div>
+                        <a href="" class="">Esqueceu a senha?</a>
+                        <button type="submit" class="botao-login ">Entrar</button>
+                    </form>
+                    <div>
+                        <a onclick="$('.login').fadeOut(0);$('.register').fadeIn(400)" class="">Ainda não tem uma conta? Cadastre-se</a>
+                    </div>
+                </div>
+            </div>
 
-    body div.auth {
-        text-align: center;
-        background-color: #c0c0c0;
-        padding: 5vw;
-        border-radius: 5vw;
-    }
+            <!-- Lado direito -->
+            <div class="col-lg-7 p-0 right  col-12 ">
+                <div class="registro-login">  
+                        <h2>Seja bem vindo!</h2>
+                        <p>Já é um Smart? Faça login na sua conta de funcionário e aproveite todas as vantagens exclusivas que temos para você!</p>
+                        <a href="login.html" class="botao-cadastro">Logar como funcionário</a>
+                    </div>
+            </div>
+            </div>
+            
+                
+            
+            <div class="row">
+                <!-- Lado esquerdo -->
+                <div class="col-lg-5 col-12 form-registrar espaco register formulario">
+                    <div class="form-container ">
+                        <form method="POST" id="register">
+                            <h2>Cadastrar</h2>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Usuário</label>
+                                <input type="text" id="username" name="user" class="form-control" placeholder="Usuário/Email:" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="telefone" class="form-label">Telefone</label>
+                                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="Telefone:" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="cnpj" class="form-label">CNPJ</label>
+                                <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="CNPJ:" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Email:" required>
+                            </div>
 
-    form {
-        text-align: center;
-    }
+                            <div class="mb-3">
+                                <label for="pass" class="form-label">Senha</label>
+                                <input type="password" id="pass" name="pass" class="form-control" placeholder="Senha:" required>
+                            </div>
 
-    form input {
-        font-size: 14pt;
-    }
+                            <div class="mb-3">
+                                <label for="word" class="form-label">Repita a senha</label>
+                                <input type="password" id="word" name="word" class="form-control" placeholder="Repita a senha:" required>
+                            </div>
+                            
+                            <a href="" class="forgot-password">Esqueceu a senha?</a>
+                            <button type="submit" class="botao-login btn btn-primary">Cadastrar</button>
+                        </form>
+                        <div>
+                            <a href="#" onclick="$('.register').fadeOut(0);$('.login').fadeIn(400)" class="">Ainda não tem uma conta? Cadastre-se</a>
+                        </div>
+                    </div>
+                </div>
 
-    .register {
-        display: none;
-    }
-</style>
+                <!-- Lado direito -->
+                <div class="col-lg-7 col-12 p-0 right espaco register">
+                    <div class="registro-login">
+                        <h2>Seja bem-vindo!</h2>
+                        <p>Já é um Smart? Faça login na sua conta de funcionário e aproveite todas as vantagens exclusivas que temos para você!</p>
+                        <a href="login.html" class="botao-cadastro btn btn-secondary">Logar como funcionário</a>
+                    </div>
+                </div>
+            </div>
 
-<body>
-    <div class="auth login">
-        <h1>Login</h1>
-        <form method="POST" id="login">
-            <br>
-            <input type="text" name="user" placeholder="Usuário/Email: ">
-            <br><br>
-            <input type="password" name="password" placeholder="Senha: ">
-            <br><br>
-            <button style="width: 100%; font-size: 18pt;">Entrar</button>
-            <br><br>
-        </form>
-        <button onclick="$('.login').fadeOut(0);$('.register').fadeIn(400)"
-            style="width: 100%; font-size: 18pt;">TROCA</button>
+            </div>
+        </div>
     </div>
-
-    <div class="auth register">
-        <h1>Registar</h1>
-        <form method="POST" id="register">
-            <br>
-            <input type="text" name="user" placeholder="Usuário: ">
-            <br><br>
-            <input type="text" name="telefone" placeholder="Telefone: ">
-            <br><br>
-            <input type="text" name="cnpj" placeholder="CNPJ: ">
-            <br><br>
-            <input type="email" name="email" placeholder="Email: ">
-            <br><br>
-            <input type="password" name="pass" placeholder="Senha: ">
-            <br><br>
-            <input type="password" name="word" placeholder="Confirme a senha: ">
-            <br><br>
-            <button style="width: 100%; font-size: 18pt;">Cadastrar</button>
-            <br><br>
-        </form>
-        <button onclick="$('.register').fadeOut(0);$('.login').fadeIn(400)"
-            style="width: 100%; font-size: 18pt;">TROCA</button>
-    </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="JS/sweetalert2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
         $('#login').on('submit', function (e) {
             e.preventDefault();
@@ -123,6 +153,15 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            // Máscara para telefone
+            $('#telefone').mask('(00) 0 0000-0000');
+            // Máscara para CNPJ
+            $('#cnpj').mask('00.000.000/0000-00');
+            
+        });
+    </script>
+    <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

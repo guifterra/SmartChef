@@ -28,7 +28,7 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
     }
     */
 
-    $stmt = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO, SENHA FROM USER WHERE USERNAME = ? LIMIT 1");
+    $stmt = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, CHAVE, FUNCAO, SENHA FROM FUNCIONARIOS WHERE USERNAME = ? LIMIT 1");
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
@@ -38,12 +38,12 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
         setcookie("EMPRESA_ID", $user['EMPRESA_ID'], time() + (10 * 365 * 24 * 60 * 60));
         setcookie("ID", $user['ID'], time() + (10 * 365 * 24 * 60 * 60));
         setcookie("TOKEN", $user['TOKEN'], time() + (10 * 365 * 24 * 60 * 60));
-        setcookie("KEY", $user['KEY'], time() + (10 * 365 * 24 * 60 * 60));
+        setcookie("CHAVE", $user['CHAVE'], time() + (10 * 365 * 24 * 60 * 60));
         setcookie("FUNCAO", $user['FUNCAO'], time() + (10 * 365 * 24 * 60 * 60));
         return true;
     } else {
-        if (!password_verify($password, $user['SENHA'])) $batata = 'oi';
-        die(header("HTTP/1.0 401 Usiario e/ou senha incorreto" . $batata));
+        if (!password_verify($password, $user['SENHA']));
+        die(header("HTTP/1.0 401 Usiario e/ou senha incorreto"));
     }
 } else {
     die(header("HTTP/1.0 401 Formulario de autenticacao invalido"));
