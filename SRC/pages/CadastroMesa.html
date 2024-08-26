@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de funcionário</title>
+    <title>Cadastro de Mesa</title>
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../Bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../CSS/cadastro-func.css">
     <link rel="stylesheet" href="../../CSS/masterpage.css">
     <link rel="stylesheet" href="../../CSS/sweetalert2.css">
-    <script src="../../JS/jquery.js"></script>
-    <script src="../../JS/masterpage.js"></script>
 </head>
 <body>
     <nav>
@@ -51,7 +49,7 @@
               </a>
             </li>
             <li class="element-ferramenta" data-tooltip="2">
-              <a href="CadastroMesa.html" data-active="2">
+              <a href="CadastroMesa.html" class="active" data-active="0">
                 <div class="icone">
                   <i class='bx bx-message-square-detail'></i>
                   <i class='bx bxs-message-square-detail'></i>
@@ -70,12 +68,12 @@
             </li>
     
             <li class="element-ferramenta" data-tooltip="4">
-              <a href="CadastroFunc.html" class="active" data-active="4">
+              <a href="CadastroFunc.html" data-active="4">
                 <div class="icone">
                   <i class='bx bx-edit-alt'></i>
                   <i class='bx bxs-edit-alt'></i>
                 </div>
-                <span class="acesso esconder active">Administrar</span>
+                <span class="acesso esconder">Administrar</span>
               </a>
             </li>
     
@@ -113,37 +111,30 @@
           </div>
         </div>
     </nav>
+
     <main>
         <div class="bordas">
             <div class="row formulario">
                 <div class="col-12 mb-4">
-                    <h2>Cadastro de funcionários</h2>
+                    <h2>Cadastro de Mesas</h2>
                 </div>
-                <form method="POST" action="" id="registrar-func">
+                <form method="POST" action="" id="registrar-mesa">
                     <div class="row">
                         <div class="col-5 inserir-info">
-                            <label for="">Nome do funcionário</label>
-                            <input type="text" name="nome" class="mt-2" id="nome" placeholder="Insira o nome">
+                            <label for="">Número da mesa</label>
+                            <input type="text" name="num-mesa" class="mt-2" id="num-mesa" placeholder="Insira o número da mesa">
                         </div>
                         <div class="col-5 offset-1 inserir-info">
                             <label for="">Senha</label>
                             <input type="password" class="mt-2" name="senha" id="senha" placeholder="Insira a senha">
                         </div>
+    
                         <div class="col-5 inserir-info">
-                            <label for="">Insira a função do funcionário</label>
-                            <select name="funcao" class="form-select mt-3" id="funcao">
-                                <option value="">Escolha uma opção</option>
-                                <option value="CAIXA">Caixa</option>
-                                <option value="GARCOM">Garçom</option>
-                                <option value="COZINHA">Cozinha</option>
-                            </select>
-                        </div>
-                        <div class="col-5 offset-1 inserir-info">
                             <label for="">Repita a senha</label>
                             <input type="password" class="mt-2" name="senha-repetida" id="senha-repetida" placeholder="Repita a senha">
                         </div>
                         <div class="col-12">
-                            <input type="submit" class="botao-enviar" value="Enviar">
+                            <input type="button" class="botao-enviar" value="Enviar">
                             <input type="reset" class="botao-limpar" value="Limpar">
                         </div>
                     </div>
@@ -153,17 +144,17 @@
     </main>
     <script src="../../JS/jquery.js"></script>
     <script src="../../JS/sweetalert2.js"></script>
-    <script src="../../Bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../../JS/masterpage.js"></script>
+    <script src="../../Bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-        $('#registrar-func').on('submit', function (e) {
+        $('#registrar-mesa').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
                 type: 'post',
-                url: '../register-func.php',
-                data: $('#registrar-func').serialize(),
+                url: 'SRC/register-mesa.php',
+                data: $('#registrar-mesa').serialize(),
                 success: function (data) {
-                    console.log("Cadastro de Funcionário realizado com sucesso");
+                    location.href = "./";
                 },
                 error: function (error) {
                     console.log(error);
@@ -176,23 +167,8 @@
                 }
             });
         });
-    </script>
-    <script>
-      function logout() {
-          $.ajax({
-              url: '../logout.php',
-              success: function () {
-                  location.href = '../../auth.html';
-              }
-          });
-      }
 
-      $(document).ready(function () {
-          load();
-          setInterval(() => {
-              load();
-          });
-      });
- </script>
+        
+    </script>
 </body>
 </html>
