@@ -108,6 +108,11 @@ body{
     height: 600px;
 }
 
+.img-chef-2{
+    height: 600px;
+    width: 600px;
+}
+
 .img-mvm{
     height: 100px;
 }
@@ -163,6 +168,11 @@ body{
     background-color: var(--branco);
     border-radius: 15px;
     box-shadow: 5px 5px 5px var(--amarelo);
+}
+
+.flex-direction-control{
+    flex-direction: row; 
+    text-align: center;
 }
 
 /* Footer */
@@ -246,5 +256,32 @@ footer{
 
     .h-ajust{
         min-height: 0px;
+    }
+
+    .img-chef{
+        height: 300px;
+    }
+
+    .img-mvm{
+        height: 50px;
+    }
+
+    .bg-img-mvm{
+        height: 225px;
+        width: 225px;
+    }
+
+    .img-empresa{
+        height: 150px;
+        width: 150px;
+    }
+
+    .img-chef-2{
+        height: 300px;
+        width: 300px;
+    }
+
+    .flex-direction-control{
+        flex-direction: column; 
     }
 }
