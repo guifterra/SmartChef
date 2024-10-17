@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+    <link rel="stylesheet" href="CSS/bootstrap.css">
+    <link rel="stylesheet" href="CSS/cardapio.css">
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <script src="JS/bootstrap.bundle.js"></script>
+    
+</head>
+<body class="bg-corpo">
+    <nav class="navbar navbar-expand bg-cardapio">
+        <div class="container-fluid">
+            <div class="nome-empresa">
+                <h5>Nome empresa</h5>
+            </div>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- Ícone de QR Scan que abre o modal -->
+                <li class="nav-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#qrModal" class="nav-link"><i class='bx bx-qr-scan fs-3'></i></a>
+                </li>
+                <!-- Ícone de Carrinho que abre o modal -->
+                <li class="nav-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="nav-link"><i class='bx bxs-cart fs-3'></i></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="container corpo">
+            <div class="categoria">
+                <h2>Lanches</h2>
+                <hr>
+            </div>
+            <div class="row justify-content-center">
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="categoria">
+                <h2>Porções</h2>
+                <hr>
+            </div>
+            <div class="row justify-content-center">
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center">
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="https://picsum.photos/400/400" class="card-img-top img-fluid" alt="...">
+                        </div>
+                        <div class="col-8">
+                            
+                            <div class="card-body text-center">
+                                <h5 class="nome-item">Nome do item</h5>
+                                <p class="card-text">Pão, Hamburguer, Queijo, Ketchup, Mostarda, Batata palha</p>
+                                <h5 class="preco">R$ 12.00</h5>
+                                <div class="d-flex justify-content-end pe-4">
+                                    <a href="#" class="btn botao" data-bs-toggle="modal" data-bs-target="#addToCartModal">Adicionar ao carrinho</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        
+            </div>
+        </div>
+
+        <!-- Modal add cart -->
+        <div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addToCartModalLabel">Adicionar ao Carrinho</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" id="quantity" min="1" value="1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="observation" class="form-label">Observação</label>
+                                <textarea class="form-control" id="observation" rows="3" placeholder="Insira suas observações/mudanças aqui"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Opções</label><br>
+                                <div>
+                                    <input type="checkbox" id="option1" value="opcao1">
+                                    <label for="option1">Opção 1</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="option2" value="opcao2">
+                                    <label for="option2">Opção 2</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="option3" value="opcao3">
+                                    <label for="option3">Opção 3</label>
+                                </div>
+                                <div>
+                                    <input type="checkbox" id="option4" value="opcao4">
+                                    <label for="option4">Opção 4</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal do QR Scan -->
+        <div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="qrModalLabel">Leitura QR Code</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body align-items-center" >
+                        <figure style="justify-content: center; display: flex;" >
+                            <img src="IMG/qrcode.png" alt="" class="img-fluid" >
+                        </figure>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal do Carrinho -->
+        <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cartModalLabel">Carrinho</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-2">
+                            <div class="col-8">
+                                <p class="nome-item">Nome do Item</p>
+                                <p><span style="font-weight: bold;">Descrição:</span> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, officiis?</p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="quantidade"><span style="font-weight: bold;">Quantidade:</span> 2</p>
+                                <p class="preco">R$ 12,00</p>
+                                <div>
+                                    <a href="" class="adicionar"><i class='bx bx-plus-medical'></i></a>
+                                    <a href="" class="subtrair"><i class='bx bx-minus'></i></a>
+                                    <a href="" class="remover"><i class='bx bx-trash'></i></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row mb-2">
+                            <div class="col-8">
+                                <p class="nome-item">Outro Item</p>
+                                <p><span style="font-weight: bold;">Descrição:</span> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, officiis?</p>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="quantidade"><span style="font-weight: bold;">Quantidade:</span> 1</p>
+                                <p class="preco">R$ 8,00</p>
+                                <div>
+                                    <a href="" class="adicionar"><i class='bx bx-plus-medical'></i></a>
+                                    <a href="" class="subtrair"><i class='bx bx-minus'></i></a>
+                                    <a href="" class="remover"><i class='bx bx-trash'></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Adicione mais itens conforme necessário -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="barra-footer text-light py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Contato</h5>
+                    <p>
+                        <strong>Email:</strong> contato@smartchef.com<br>
+                        <strong>Telefone:</strong> (00) 1234-5678
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links Úteis</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">Home</a></li>
+                        <li><a href="#" class="text-light">Sobre Nós</a></li>
+                        <li><a href="#" class="text-light">Cardápio</a></li>
+                        <li><a href="#" class="text-light">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Siga-nos</h5>
+                    <p>
+                        <a href="#" class="text-light"><i class='bx bxl-facebook fs-4'></i></a>
+                        <a href="#" class="text-light"><i class='bx bxl-instagram fs-4'></i></a>
+                        <a href="#" class="text-light"><i class='bx bxl-twitter fs-4'></i></a>
+                    </p>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <p>© 2024 SmartChef. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+<script src="JS/bootstrap.bundle.js"></script>
+
+</body>
+</html>

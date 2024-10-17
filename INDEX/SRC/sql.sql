@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `PI22024`.`PEDIDO` (
     `COMANDA_ID` INT NOT NULL,
     `STATUS` ENUM(
         'COZINHA',
-        'GARCON',
+        'GARCOM',
         'DESATIVADO'
     ) NOT NULL DEFAULT 'COZINHA',
     `DATA` DATETIME NULL DEFAULT NULL,
@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS `PI22024`.`ITENS` (
     `PEDIDO_ID` INT NOT NULL,
     `CARDAPIO_ID` INT NOT NULL,
     `DESCRICAO` TEXT NOT NULL,
+    `QUANTIDADE` TEXT NOT NULL,
     `PRECO` DOUBLE NOT NULL,
     PRIMARY KEY (`ID`),
     INDEX `fk_ITENS_PEDIDO1_idx` (`PEDIDO_ID` ASC),
@@ -136,3 +137,68 @@ CREATE TABLE IF NOT EXISTS `PI22024`.`USER` (
     INDEX `fk_USER_EMPRESA1_idx` (`EMPRESA_ID` ASC),
     CONSTRAINT `fk_USER_EMPRESA1` FOREIGN KEY (`EMPRESA_ID`) REFERENCES `PI22024`.`EMPRESA` (`ID`)
 ) ENGINE = InnoDB;
+
+-- Inserts para teste
+-- Inserir dados na tabela EMPRESA
+INSERT INTO `PI22024`.`EMPRESA` (`ID`, `USERNAME`, `TELEFONE`, `CNPJ`, `EMAIL`, `SENHA`, `PAGAMENTO`)
+VALUES (1, 'TESTE', '(12) 9 9200-3001', '11.111.111/1111-12', 'teste@gmail.com', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', '2024-11-16');
+
+-- Inserir dados na tabela USER (ADM, GARCOM, COZINHA, CAIXA)
+INSERT INTO `PI22024`.`USER` (`ID`, `EMPRESA_ID`, `USERNAME`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`)
+VALUES 
+(1, 1, 'teste', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'ADM', 'f503d389d10898a34544eb1aa7bf6920de018dd6', 114885318, 1),
+(2, 1, 'testeGARCOM', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'GARCOM', 'd912a6f5c4b8392e2d3c9db8f1a5f0c7d4e5b60a', 731529834, 1),
+(3, 1, 'testeCOZINHA', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'COZINHA', 'a4d529b9fae18d347e935ba3f9c7b6b8f3f7e5c2', 582194657, 1),
+(4, 1, 'testeCAIXA', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'CAIXA', 'b703f6a7b2f1c834fa9e7bd4d0c9a0e6f7b8c3d9', 364829105, 1);
+
+
+-- Inserir dados na tabela CARDAPIO
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+VALUES 
+(1, 'Hamburguer Simples', 'Hamburguer com pão, carne e queijo', 
+    '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', 
+    '[{"nome": "Bacon", "alergicos": []}, {"nome": "Ovo", "alergicos": []}]', 
+    15.99, 'Lanche', 1),
+(1, 'Salada Caesar', 'Salada com alface, frango e molho caesar', 
+    '[{"nome": "Alface", "alergicos": []}, {"nome": "Frango", "alergicos": []}, {"nome": "Molho Caesar", "alergicos": ["lactose"]}]', 
+    '[{"nome": "Croutons", "alergicos": ["gluten"]}, {"nome": "Parmesão", "alergicos": ["lactose"]}]', 
+    19.99, 'Salada', 1),
+(1, 'Pizza Marguerita', 'Pizza de queijo e tomate', 
+    '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Tomate", "alergicos": []}]', 
+    '[{"nome": "Azeitona", "alergicos": []}, {"nome": "Orégano", "alergicos": []}]', 
+    29.99, 'Pizza', 1);
+
+-- Inserir dados na tabela MESA
+INSERT INTO `PI22024`.`MESA` (`EMPRESA_ID`, `NUMERO`, `TOKEN`)
+VALUES 
+(1, 1, 'TOKEN_MESA_1'),
+(1, 2, 'TOKEN_MESA_2'),
+(1, 3, 'TOKEN_MESA_3');
+
+-- Inserir dados na tabela COMANDA
+INSERT INTO `PI22024`.`COMANDA` (`MESA_ID`)
+VALUES 
+(1),
+(2),
+(3);
+
+-- Inserir dados na tabela HISTORICO
+INSERT INTO `PI22024`.`HISTORICO` (`EMPRESA_ID`, `DATA`, `HISTORICO`)
+VALUES 
+(1, CURDATE(), 'Histórico de vendas do dia 1'),
+(1, CURDATE() - INTERVAL 1 DAY, 'Histórico de vendas do dia 2'),
+(1, CURDATE() - INTERVAL 2 DAY, 'Histórico de vendas do dia 3');
+
+-- Inserir dados na tabela PEDIDO
+INSERT INTO `PI22024`.`PEDIDO` (`COMANDA_ID`, `STATUS`, `DATA`)
+VALUES 
+(1, 'COZINHA', NOW()),
+(2, 'GARCOM', NOW()),
+(3, 'COZINHA', NOW());
+
+-- Inserir dados na tabela ITENS
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(1, 1, 1, 'Sem Maiosnese', 15.99, 1),
+(2, 2, 2, 'Caprichada no tempero', 19.99, 2),
+(3, 3, 3, 'Borda recheada', 29.99, 3);

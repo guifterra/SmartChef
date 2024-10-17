@@ -1,0 +1,142 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%; 
+  margin: 0;
+}
+
+:root {
+  --vermelho-escuro: #3e0101;
+  --vermelho-medio: #730202;
+  --laranja: #BF2604;
+  --laranja-claro: #D97904;
+  --amarelo: #F2B705;
+  --amarelo-claro: #fef9dc;
+  --branco: #fff;
+  --preto: #111;
+  --cinza: #727171;
+  --verde: #13bc2c;
+  --vermelho: #e10505;
+}
+
+/* Navbar / padrão */
+
+.bg-cardapio {
+    background-color: var(--laranja-claro);
+}
+
+.bg-corpo {
+    background-color: var(--amarelo-claro);
+}
+
+.nome-empresa h5{
+  font-weight: bolder;
+  color: var(--branco);
+}
+
+.icones ul li a i{
+  color: var(--vermelho-escuro);
+}
+
+/* Corpo do projeto */
+
+.corpo {
+    padding-top: 30px;
+}
+
+.item {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.item img {
+    border-radius: 10px;
+    width: 90%; 
+    max-width: 250px;
+    margin-top: 10px;
+}
+
+.item .card-body {
+    margin-top: 15px;
+}
+
+.item .botao {
+    text-decoration: none;
+    background-color: var(--vermelho-medio);
+    color: var(--branco);
+    padding: 10px 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 5px var(--preto);
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.nome-item {
+    font-weight: bold;
+    text-align: start;
+}
+
+.preco {
+    font-weight: bolder;
+    margin-bottom: 15px;
+    text-align: end;
+    padding-right: 25px;
+}
+
+.card-text{
+  text-align: start;
+  padding-right: 20px;
+}
+
+.qr-code i:hover, .carrinho i:hover{
+  color: var(--branco);
+}
+
+.categoria{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: var(--vermelho-escuro);
+}
+
+
+/* Modais */
+
+.adicionar{
+  color: var(--verde);
+  font-size: larger;
+}
+
+.subtrair{
+  color: var(--vermelho);
+  font-size: larger;
+}
+
+.remover{
+  color: var(--vermelho);
+  font-size: larger;
+}
+
+.botao-fechar{
+  background-color: var(--laranja-claro);
+  color: var(--branco);
+  font-weight: bold;
+}
+
+.botao-fechar:hover{
+  background-color: var(--amarelo);
+}
+
+/* Footer */
+
+.barra-footer{
+  margin-top: 20px;
+  background-color: var(--laranja-claro);
+  min-height: 100px;
+}
