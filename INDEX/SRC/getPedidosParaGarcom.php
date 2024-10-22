@@ -7,7 +7,9 @@ SELECT
     PEDIDO.DATA AS Pedido_Data,
     CARDAPIO.NOME AS Nome_Prato,
     ITENS.DESCRICAO AS Descricao_Item,
-    MESA.NUMERO AS Numero_da_Mesa
+    ITENS.QUANTIDADE AS Quantidade_Item,
+    MESA.NUMERO AS Numero_da_Mesa,
+    NOW() AS Horario_Servidor
 FROM 
     PI22024.PEDIDO
 LEFT JOIN 
@@ -31,14 +33,14 @@ $stmt->bind_param("i", $_COOKIE["EMPRESA_ID"]);
 $stmt->execute();
 $stmt = $stmt->get_result();
 
-date_default_timezone_set('America/Sao_Paulo');
-$agora = new DateTime(); // Hora atual
+$agora = ''; // Hora atual
 
 $pedidosAgrupados = [];
 
 while ($pedido = $stmt->fetch_assoc()) {
     
     $pedidoID = $pedido['Pedido_ID'];
+    $agora = new DateTime($pedido['Horario_Servidor']);
     
     if (!isset($pedidosAgrupados[$pedidoID])) {
         $pedidosAgrupados[$pedidoID] = [
@@ -50,7 +52,8 @@ while ($pedido = $stmt->fetch_assoc()) {
 
     $pedidosAgrupados[$pedidoID]['Itens'][] = [
         'Nome_Prato' => $pedido['Nome_Prato'],
-        'Descricao_Item' => $pedido['Descricao_Item']
+        'Descricao_Item' => $pedido['Descricao_Item'],
+        'Quantidade_Item' => $pedido['Quantidade_Item']
     ];
 }
 
@@ -74,22 +77,27 @@ foreach ($pedidosAgrupados as $pedidoID => $pedido) {
             <div class='card produto $corDeFundo' style='width: 18rem;'>
                 <div class='card-body'>
                     <h5 class='card-title'>Pedido #".$pedidoID."</h5>
-                    <h5 class='card-title'>Itens do Pedido:</h5>
+                    <hr>
+                    <h5 class='card-title'>Entrega para a mesa: ".$pedido['Numero_da_Mesa']." </h5>
+                    <hr>
+                    <h5 class='card-title'>Conclusão do prato:</h5>
+                    <p>".$pedido['Pedido_Data']."</p>
     ";
 
     foreach ($pedido['Itens'] as $item) {
         echo "
-            <p><strong>".$item['Nome_Prato']."</strong>: <br>".$item['Descricao_Item']."</p>
+            <hr>
+            <p>
+                <strong>".$item['Nome_Prato']."</strong>: <br>
+                ".$item['Descricao_Item']." <br>
+                <strong>Quantidade: </strong> ".$item['Quantidade_Item']."
+            </p>
         ";
     }
 
     echo "
-                    <h5 class='card-title'>Entrega para a mesa:</h5>
-                    <p>".$pedido['Numero_da_Mesa']."</p>
-                    <h5 class='card-title'>D/h de conclusão do prato:</h5>
-                    <p>".$pedido['Pedido_Data']."</p>
-                    <a href='#' class='btn botao-entrega'>Pronto</a>
-                    <a href='#' class='btn botao-cancelar'>Cancelar</a>
+                    <a href='#' class='btn botao-entrega' data-pedido-id='".$pedidoID."'>Pronto</a>
+                    <a href='#' class='btn botao-cancelar' data-pedido-id='".$pedidoID."'>Cancelar</a>
                 </div>
             </div>
         </div>
