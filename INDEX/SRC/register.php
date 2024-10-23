@@ -69,7 +69,7 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
     $password = password_hash($password, PASSWORD_DEFAULT);
 
 
-    $stmt = $con->prepare("INSERT INTO EMPRESA (`ID`,`USERNAME`, `TELEFONE`, `CNPJ`, `EMAIL`, `SENHA`) VALUES (0, ?, ?, ?, ?, ?)");
+    $stmt = $con->prepare("INSERT INTO `EMPRESA` (`ID`, `USERNAME`, `TELEFONE`, `CNPJ`, `EMAIL`, `SENHA`, `PAGAMENTO`) VALUES (0, ?, ?, ?, ?, ?, (now() + interval 30 day))");
     $stmt->bind_param("sssss", $username, $telefone, $cnpj, $email, $password);
     $stmt->execute();
 
