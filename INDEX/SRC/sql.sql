@@ -157,16 +157,42 @@ INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENT
 VALUES 
 (1, 'Hamburguer Simples', 'Hamburguer com pão, carne e queijo', 
     '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', 
-    '[{"nome": "Bacon", "alergicos": []}, {"nome": "Ovo", "alergicos": []}]', 
+    '[{"nome": "Bacon", "alergicos": [], "preco": 2.50}, {"nome": "Ovo", "alergicos": [], "preco": 1.50}]', 
     15.99, 'Lanche', 1),
 (1, 'Salada Caesar', 'Salada com alface, frango e molho caesar', 
     '[{"nome": "Alface", "alergicos": []}, {"nome": "Frango", "alergicos": []}, {"nome": "Molho Caesar", "alergicos": ["lactose"]}]', 
-    '[{"nome": "Croutons", "alergicos": ["gluten"]}, {"nome": "Parmesão", "alergicos": ["lactose"]}]', 
+    '[{"nome": "Croutons", "alergicos": ["gluten"], "preco": 3.00}, {"nome": "Parmesão", "alergicos": ["lactose"], "preco": 2.00}]', 
     19.99, 'Salada', 1),
 (1, 'Pizza Marguerita', 'Pizza de queijo e tomate', 
     '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Tomate", "alergicos": []}]', 
-    '[{"nome": "Azeitona", "alergicos": []}, {"nome": "Orégano", "alergicos": []}]', 
-    29.99, 'Pizza', 1);
+    '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}, {"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 
+    29.99, 'Pizza', 1),
+(1, 'Cheeseburger', 'Hambúrguer com queijo, alface e tomate', 
+    '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Alface", "alergicos": []}, {"nome": "Tomate", "alergicos": []}]', 
+    '[{"nome": "Maionese", "alergicos": ["ovos"], "preco": 1.00}, {"nome": "Bacon", "alergicos": [], "preco": 2.50}]', 
+    17.50, 'Lanche', 1),
+(1, 'Salada de Frutas', 'Salada de frutas frescas da estação', 
+    '[{"nome": "Maçã", "alergicos": []}, {"nome": "Banana", "alergicos": []}, {"nome": "Laranja", "alergicos": []}]', 
+    '[{"nome": "Granola", "alergicos": ["gluten"], "preco": 2.00}, {"nome": "Mel", "alergicos": [], "preco": 1.50}]', 
+    12.99, 'Salada', 1),
+(1, 'Pizza Calabresa', 'Pizza com calabresa, queijo e cebola', 
+    '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Calabresa", "alergicos": []}, {"nome": "Cebola", "alergicos": []}]', 
+    '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}, {"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 
+    31.99, 'Pizza', 1),
+(1, 'Suco Natural', 'Suco natural de laranja', 
+    '[{"nome": "Laranja", "alergicos": []}]', 
+    '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}, {"nome": "Açúcar", "alergicos": [], "preco": 0.00}]', 
+    7.50, 'Bebida', 1),
+(1, 'Refrigerante', 'Refrigerante lata 350ml', 
+    '[{"nome": "Refrigerante", "alergicos": []}]', 
+    '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 
+    5.00, 'Bebida', 1),
+(1, 'Suco Detox', 'Suco detox com couve e limão', 
+    '[{"nome": "Couve", "alergicos": []}, {"nome": "Limão", "alergicos": []}]', 
+    '[{"nome": "Gengibre", "alergicos": [], "preco": 0.50}, {"nome": "Mel", "alergicos": [], "preco": 1.00}]', 
+    9.99, 'Bebida', 1);
+
+
 
 -- Inserir dados na tabela MESA
 INSERT INTO `PI22024`.`MESA` (`EMPRESA_ID`, `NUMERO`, `TOKEN`)

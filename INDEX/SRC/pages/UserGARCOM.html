@@ -67,14 +67,14 @@
           });
       });
 
-      $(document).on('click', '.botao-cancelar', function(e) {
+      $(document).on('click', '.botao-voltar', function(e) {
           e.preventDefault();
 
           // Obtém o ID do pedido
           let pedido_id = $(this).data('pedido-id'); 
 
           $.ajax({
-              url: 'SRC/putCancelarPedido.php', // URL do arquivo PHP que irá fazer o update
+              url: 'SRC/putDevolverPedidoACozinha.php', // URL do arquivo PHP que irá fazer o update
               type: 'POST',
               data: { pedido_id: pedido_id }, // Envia o ID do pedido para o PHP
               success: function(response) {
@@ -114,12 +114,13 @@
     });
 
     function load() {
-      $.ajax({
-          url: 'SRC/getPedidosParaGarcom.php',
-          success: function (data) {
-              $('#PEDIDOS').html(data);
-          }
-      });
+        $.ajax({
+            url: 'SRC/getPedidosParaGarcom.php',
+            success: function (data) {
+                $('#PEDIDOS').html(data);
+            }
+        });
+        setTimeout(load, 3000)
     }
 
 </script>

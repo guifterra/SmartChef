@@ -66,10 +66,16 @@ foreach ($pedidosAgrupados as $pedidoID => $pedido) {
 
     if ($minutosPassados > 5) {
         $corDeFundo = 'fundo-vermelho'; // Mais de 5 minutos
+        $visibilidadeBTNpronto = 'd-none';
+        $visibilidadeBTNretorno = 'd-inline';
     } elseif ($minutosPassados >= 2) {
         $corDeFundo = 'fundo-amarelo'; // Entre 2 e 5 minutos
+        $visibilidadeBTNpronto = 'd-inline';
+        $visibilidadeBTNretorno = 'd-none';
     } else {
         $corDeFundo = 'fundo-normal'; // Menos de 2 minutos
+        $visibilidadeBTNpronto = 'd-inline';
+        $visibilidadeBTNretorno = 'd-none';
     }
 
     echo "
@@ -96,8 +102,8 @@ foreach ($pedidosAgrupados as $pedidoID => $pedido) {
     }
 
     echo "
-                    <a href='#' class='btn botao-entrega' data-pedido-id='".$pedidoID."'>Pronto</a>
-                    <a href='#' class='btn botao-cancelar' data-pedido-id='".$pedidoID."'>Cancelar</a>
+                    <a href='#' class='btn botao-entrega $visibilidadeBTNpronto' data-pedido-id='".$pedidoID."'>Pronto</a>
+                    <a href='#' class='btn botao-voltar $visibilidadeBTNretorno' data-pedido-id='".$pedidoID."'>Voltar a Cozinha</a>
                 </div>
             </div>
         </div>

@@ -75,7 +75,6 @@ foreach ($pedidosAgrupados as $pedidoID => $pedido) {
 
     echo "
                     <a href='#' class='btn botao-entrega' data-pedido-id='".$pedidoID."'>Pronto</a>
-                    <a href='#' class='btn botao-cancelar' data-pedido-id='".$pedidoID."'>Cancelar</a>
                 </div>
             </div>
         </div>

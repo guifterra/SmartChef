@@ -56,51 +56,6 @@
               }
           });
       });
-
-      $(document).on('click', '.botao-cancelar', function(e) {
-          e.preventDefault();
-
-          // Obtém o ID do pedido
-          let pedido_id = $(this).data('pedido-id'); 
-
-          $.ajax({
-              url: 'SRC/putCancelarPedido.php', // URL do arquivo PHP que irá fazer o update
-              type: 'POST',
-              data: { pedido_id: pedido_id }, // Envia o ID do pedido para o PHP
-              success: function(response) {
-                  // Parseia o JSON retornado
-                  let res = JSON.parse(response);
-
-                  if (res.success) {
-                      Swal.fire({
-                          title: 'Sucesso!',
-                          text: res.message, // Mensagem de sucesso
-                          icon: 'success',
-                          confirmButtonText: 'Ok'
-                      }).then(() => {
-                          load(); // Recarrega os pedidos após fechar o alerta
-                      });
-                  } else {
-                      Swal.fire({
-                          title: 'Erro',
-                          text: res.message, // Mensagem de erro retornada pelo PHP
-                          icon: 'error',
-                          confirmButtonText: 'Ok'
-                      });
-                  }
-              },
-              error: function(error) {
-                  console.log(error); // Apenas para debug no console, se necessário
-
-                  Swal.fire({
-                      title: 'Erro',
-                      text: error.statusText, // Mensagem de erro padrão do Ajax
-                      icon: 'error',
-                      confirmButtonText: 'Ok'
-                  });
-              }
-          });
-      });
     });
 
     function load() {
