@@ -32,7 +32,7 @@ body{
 .nome{
   font-size: 22px;
   margin-top: 15px;
-  text-transform: lowercase;
+  text-transform: uppercase;
 }
 
 .nome::first-letter{

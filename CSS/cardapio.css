@@ -55,11 +55,14 @@ html, body {
     margin-bottom: 20px;
 }
 
+.container-img-cardapio{
+  height: 210px;
+}
+
 .item img {
     border-radius: 10px;
-    width: 90%; 
-    max-width: 250px;
-    margin-top: 10px;
+    width: 400px;
+    height: 100%;
 }
 
 .item .card-body {

@@ -121,7 +121,8 @@ CREATE TABLE IF NOT EXISTS `PI22024`.`ITENS` (
 CREATE TABLE IF NOT EXISTS `PI22024`.`USER` (
     `ID` INT NOT NULL AUTO_INCREMENT,
     `EMPRESA_ID` INT NOT NULL,
-    `USERNAME` VARCHAR(75) NOT NULL,
+    `USERNAME` VARCHAR(75) NOT NULL UNIQUE,
+    `EMAIL` VARCHAR(75) NOT NULL UNIQUE,
     `SENHA` VARCHAR(200) NOT NULL,
     `FUNCAO` ENUM(
         'COZINHA',
@@ -144,12 +145,12 @@ INSERT INTO `PI22024`.`EMPRESA` (`ID`, `USERNAME`, `TELEFONE`, `CNPJ`, `EMAIL`, 
 VALUES (1, 'TESTE', '(12) 9 9200-3001', '11.111.111/1111-12', 'teste@gmail.com', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', '2024-11-16');
 
 -- Inserir dados na tabela USER (ADM, GARCOM, COZINHA, CAIXA)
-INSERT INTO `PI22024`.`USER` (`ID`, `EMPRESA_ID`, `USERNAME`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`)
+INSERT INTO `PI22024`.`USER` (`ID`, `EMPRESA_ID`, `USERNAME`, `EMAIL`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`)
 VALUES 
-(1, 1, 'teste', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'ADM', 'f503d389d10898a34544eb1aa7bf6920de018dd6', 114885318, 1),
-(2, 1, 'testeGARCOM', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'GARCOM', 'd912a6f5c4b8392e2d3c9db8f1a5f0c7d4e5b60a', 731529834, 1),
-(3, 1, 'testeCOZINHA', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'COZINHA', 'a4d529b9fae18d347e935ba3f9c7b6b8f3f7e5c2', 582194657, 1),
-(4, 1, 'testeCAIXA', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'CAIXA', 'b703f6a7b2f1c834fa9e7bd4d0c9a0e6f7b8c3d9', 364829105, 1);
+(1, 1, 'teste', 'teste@gmail.com', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'ADM', 'f503d389d10898a34544eb1aa7bf6920de018dd6', 114885318, 1),
+(2, 1, 'testeGARCOM', 'testeGARCOM@gmail.com', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'GARCOM', 'd912a6f5c4b8392e2d3c9db8f1a5f0c7d4e5b60a', 731529834, 1),
+(3, 1, 'testeCOZINHA', 'testeCOZINHA@gmail.com', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'COZINHA', 'a4d529b9fae18d347e935ba3f9c7b6b8f3f7e5c2', 582194657, 1),
+(4, 1, 'testeCAIXA', 'testeCAIXA@gmail.com', '$2y$10$RoqTKkKdGqu2rlynQHCOt.kQylGxE2eJcYdZoWfn5IUwMPFVWNJRa', 'CAIXA', 'b703f6a7b2f1c834fa9e7bd4d0c9a0e6f7b8c3d9', 364829105, 1);
 
 
 -- Inserir dados na tabela CARDAPIO
@@ -192,8 +193,6 @@ VALUES
     '[{"nome": "Gengibre", "alergicos": [], "preco": 0.50}, {"nome": "Mel", "alergicos": [], "preco": 1.00}]', 
     9.99, 'Bebida', 1);
 
-
-
 -- Inserir dados na tabela MESA
 INSERT INTO `PI22024`.`MESA` (`EMPRESA_ID`, `NUMERO`, `TOKEN`)
 VALUES 
@@ -218,8 +217,8 @@ VALUES
 -- Inserir dados na tabela PEDIDO
 INSERT INTO `PI22024`.`PEDIDO` (`COMANDA_ID`, `STATUS`, `DATA`)
 VALUES 
-(1, 'COZINHA', NOW()),
-(2, 'GARCOM', NOW()),
+(1, 'GARCOM', NOW()),
+(2, 'COZINHA', NOW()),
 (3, 'COZINHA', NOW());
 
 -- Inserir dados na tabela ITENS
@@ -228,3 +227,118 @@ VALUES
 (1, 1, 1, 'Sem Maiosnese', 15.99, 1),
 (2, 2, 2, 'Caprichada no tempero', 19.99, 2),
 (3, 3, 3, 'Borda recheada', 29.99, 3);
+
+-- =================================
+-- MAIS VALORES PARA TESTE
+-- =================================
+
+-- Inserir dados adicionais na tabela CARDAPIO
+
+-- Categoria Lanche
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+VALUES 
+(1, 'Cheeseburger Duplo', 'Hambúrguer duplo com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Bacon", "alergicos": [], "preco": 2.50}]', 20.99, 'Lanche', 1),
+(1, 'X-Bacon', 'Hambúrguer com queijo e bacon', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Bacon", "alergicos": []}]', '[{"nome": "Maionese", "alergicos": ["ovos"], "preco": 1.00}]', 18.99, 'Lanche', 1),
+(1, 'Hot Dog', 'Cachorro quente com salsicha e molhos', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Salsicha", "alergicos": []}]', '[{"nome": "Queijo ralado", "alergicos": ["lactose"], "preco": 1.50}]', 10.99, 'Lanche', 1),
+(1, 'Chicken Burger', 'Hambúrguer de frango com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Frango", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Alface", "alergicos": [], "preco": 1.00}]', 17.50, 'Lanche', 1),
+(1, 'Veggie Burger', 'Hambúrguer vegetariano com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Hambúrguer vegetariano", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Tomate", "alergicos": [], "preco": 0.50}]', 15.50, 'Lanche', 1);
+
+-- Categoria Pizza
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+VALUES 
+(1, 'Pizza Portuguesa', 'Pizza com presunto, ovos, e cebola', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Presunto", "alergicos": []}, {"nome": "Ovo", "alergicos": ["ovos"]}, {"nome": "Cebola", "alergicos": []}]', '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 34.99, 'Pizza', 1),
+(1, 'Pizza Quatro Queijos', 'Pizza com quatro tipos de queijo', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo mussarela", "alergicos": ["lactose"]}, {"nome": "Queijo parmesão", "alergicos": ["lactose"]}, {"nome": "Queijo gorgonzola", "alergicos": ["lactose"]}]', '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 36.99, 'Pizza', 1),
+(1, 'Pizza de Frango com Catupiry', 'Pizza com frango e catupiry', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Frango", "alergicos": []}, {"nome": "Catupiry", "alergicos": ["lactose"]}]', '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 35.99, 'Pizza', 1),
+(1, 'Pizza Pepperoni', 'Pizza com pepperoni e queijo', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Pepperoni", "alergicos": []}]', '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 32.99, 'Pizza', 1);
+
+-- Categoria Bebida
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+VALUES 
+(1, 'Água Mineral', 'Água mineral sem gás', '[{"nome": "Água mineral", "alergicos": []}]', '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 3.00, 'Bebida', 1),
+(1, 'Café', 'Café expresso', '[{"nome": "Café", "alergicos": []}]', '[{"nome": "Açúcar", "alergicos": [], "preco": 0.00}]', 5.00, 'Bebida', 1),
+(1, 'Chá Gelado', 'Chá gelado de limão', '[{"nome": "Chá", "alergicos": []}, {"nome": "Limão", "alergicos": []}]', '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 6.50, 'Bebida', 1);
+
+-- Categoria Salada
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+VALUES 
+(1, 'Salada Grega', 'Salada com tomate, pepino e queijo feta', '[{"nome": "Tomate", "alergicos": []}, {"nome": "Pepino", "alergicos": []}, {"nome": "Queijo feta", "alergicos": ["lactose"]}]', '[{"nome": "Azeite", "alergicos": [], "preco": 0.50}]', 18.00, 'Salada', 1),
+(1, 'Salada de Atum', 'Salada com atum e alface', '[{"nome": "Atum", "alergicos": []}, {"nome": "Alface", "alergicos": []}]', '[{"nome": "Croutons", "alergicos": ["gluten"], "preco": 1.50}]', 16.50, 'Salada', 1);
+
+-- Inserir dados adicionais na tabela MESA
+INSERT INTO `PI22024`.`MESA` (`EMPRESA_ID`, `NUMERO`, `TOKEN`)
+VALUES 
+(1, 4, 'TOKEN_MESA_4'),
+(1, 5, 'TOKEN_MESA_5'),
+(1, 6, 'TOKEN_MESA_6'),
+(1, 7, 'TOKEN_MESA_7');
+
+-- Inserir dados adicionais na tabela COMANDA
+INSERT INTO `PI22024`.`COMANDA` (`MESA_ID`)
+VALUES 
+(4),
+(5),
+(6),
+(7);
+
+-- Inserir dados adicionais na tabela PEDIDO
+INSERT INTO `PI22024`.`PEDIDO` (`COMANDA_ID`, `STATUS`, `DATA`)
+VALUES 
+(4, 'COZINHA', NOW()),
+(5, 'COZINHA', NOW()),
+(6, 'COZINHA', NOW()),
+(7, 'COZINHA', NOW());
+
+-- Inserir dados adicionais na tabela ITENS
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(4, 4, 1, 'Extra bacon', 15.99, 1),
+(5, 5, 2, 'Pouca maionese', 19.99, 2),
+(6, 6, 3, 'Borda de queijo', 29.99, 3),
+(7, 7, 4, 'Sem cebola', 34.99, 1);
+
+-- Itens adicionais para o Pedido 1 (3 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(8, 1, 1, 'Extra queijo', 15.99, 3),
+(9, 1, 2, 'Sem molho', 19.99, 2),
+(10, 1, 3, 'Com bacon', 29.99, 1);
+
+-- Itens adicionais para o Pedido 2 (2 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(11, 2, 2, 'Bem temperado', 19.99, 4),
+(12, 2, 4, 'Extra molho', 34.99, 1);
+
+-- Itens adicionais para o Pedido 3 (3 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(13, 3, 3, 'Borda recheada', 29.99, 3),
+(15, 3, 7, 'Com açúcar', 7.50, 2),
+(16, 3, 8, 'Sem gelo', 5.00, 1);
+
+-- Itens adicionais para o Pedido 4 (3 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(17, 4, 9, 'Extra gengibre', 9.99, 2),
+(20, 4, 2, 'Extra carne', 19.99, 7),
+(21, 4, 3, 'Com picles', 17.50, 5);
+
+-- Itens adicionais para o Pedido 5 (3 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(22, 5, 11, 'Sem queijo', 18.00, 5),
+(23, 5, 4, 'Extra cebola', 34.99, 1),
+(24, 5, 6, 'Com gelo', 12.99, 3);
+
+-- Itens adicionais para o Pedido 6 (3 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(25, 6, 7, 'Pouco açúcar', 7.50, 1),
+(27, 6, 2, 'Extra molho', 19.99, 2),
+(30, 6, 1, 'Extra bacon', 15.99, 8);
+
+-- Itens adicionais para o Pedido 7 (2 itens)
+INSERT INTO `PI22024`.`ITENS` (`ID`, `PEDIDO_ID`, `CARDAPIO_ID`, `DESCRICAO`, `PRECO`, `QUANTIDADE`)
+VALUES 
+(31, 7, 11, 'Pouco molho', 18.00, 4),
+(32, 7, 4, 'Com picles', 10.99, 5);

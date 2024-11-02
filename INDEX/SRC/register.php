@@ -11,7 +11,7 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
     $word = $_POST["word"];
 
     if ($username == "" || $telefone == "" || $cnpj == "" || $email == "" || $password == "" || $word == "") {
-        die(header("HTTP/1.0 401 Preenche todos os campos do formulario"));
+        die(header("HTTP/1.0 401 Preencha todos os campos do formulario"));
     }
 
     $padrao = '/^[A-Za-z_-]+$/';
@@ -51,7 +51,7 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
     $checkcnpf->execute();
     $count = $checkcnpf->get_result()->num_rows;
     if ($count > 0) {
-        die(header("HTTP/1.0 401 Conta registada com este CNPJ já existente"));
+        die(header("HTTP/1.0 401 Conta registada com este CNPJ ja existente"));
     }
 
     $checkEmail = $con->prepare("SELECT ID FROM EMPRESA WHERE EMAIL = ?");
@@ -59,11 +59,11 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
     $checkEmail->execute();
     $count = $checkEmail->get_result()->num_rows;
     if ($count > 0) {
-        die(header("HTTP/1.0 401 Conta registada com este e-mail já existente"));
+        die(header("HTTP/1.0 401 Conta registada com este e-mail ja existente"));
     }
 
     if ($password != $word) {
-        die(header("HTTP/1.0 401 Passwords diferentes"));
+        die(header("HTTP/1.0 401 As senhas nao coincidem"));
     }
 
     $password = password_hash($password, PASSWORD_DEFAULT);
@@ -83,9 +83,9 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
     $token = bin2hex(openssl_random_pseudo_bytes(20));
     $key = rand(100000000, 999999999);
 
-    $stmt = $con->prepare("INSERT INTO USER (`ID`,`EMPRESA_ID`, `USERNAME`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`) VALUES (0, ?, ?, ?, 'ADM', ?, ?, '1')");
+    $stmt = $con->prepare("INSERT INTO USER (`ID`,`EMPRESA_ID`, `USERNAME`, `EMAIL`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`) VALUES (0, ?, ?, ?, ?, 'ADM', ?, ?, '1')");
     $tempusername = $username;
-    $stmt->bind_param("isssi", $EMPRESA_ID, $tempusername, $password, $token, $key);
+    $stmt->bind_param("issssi", $EMPRESA_ID, $tempusername, $email, $password, $token, $key);
     $stmt->execute();
 
     $getUser = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO FROM USER WHERE USERNAME = ? and `TOKEN` = ? and `KEY` = ?");
@@ -105,5 +105,5 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
         die(header("HTTP/1.0 401 Ocorreu um erro na base de dados"));
     }
 } else {
-    die(header("HTTP/1.0 401 Formulário de autenticação inválido"));
+    die(header("HTTP/1.0 401 Formulario de autenticacao invalido"));
 }

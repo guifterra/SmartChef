@@ -4,14 +4,6 @@ Completar tela cardapio
 
 -----------
 
-Colocar preço no adicional do cardapio - Dentro do JSON
-
-------------
-
-Tirar o botão cancelar de geral
-
-----------
-
 MESA (Trazer dados da comanda)
 - Oq importa é a comanda
 - Trazer os dados 

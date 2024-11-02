@@ -1,7 +1,7 @@
 <?php
 
-$hospedagem = "https://localhost/";
-$nomeDaPastaDoProjeto = "PI-Dev-Version/";
+$hospedagem = "http://localhost/";
+$nomeDaPastaDoProjeto = "SmartChef-main/";
 $endereco = "cardapio.html?SCempresaId=".$_GET['SCempresaId']."&SCtokenMesa=".$_GET['SCtokenMesa']."&SCnumeroMesa=".$_GET['SCnumeroMesa']."";
 
 $linkDoCardapio = $hospedagem . $nomeDaPastaDoProjeto . $endereco;

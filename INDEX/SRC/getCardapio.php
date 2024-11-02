@@ -62,8 +62,11 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
                     <h2>$categoria</h2>
                     <hr>
                 </div>
+
+                <div class='row'>
             ";
 
+            
             foreach ($pratos as $prato) {
                 // Transformar JSON dos ingredientes e adicionais em arrays
                 $ingredientesArray = json_decode($prato['Ingredientes'], true);
@@ -74,15 +77,14 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
                 $ingredientesFormatados = implode(", ", $ingredientesNomes);
 
                 echo "
-                    <div class='row justify-content-center'>
                     <div class='item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center'>
                         <div class='row'>
-                            <div class='col-4'>
-                                <img src='https://picsum.photos/400/400' class='card-img-top img-fluid' alt='...'>
+                            <div class='col-4 container-img-cardapio'>
+                                <img src='https://picsum.photos/400/800' class='img-fluid' alt='...'>
                             </div>
                             <div class='col-8'>
                                 
-                                <div class='card-body text-center'>
+                                <div class='card-body text-center ps-4'>
                                     <h5 class='nome-item'>{$prato['Nome_Prato']}</h5>
                                     <p class='card-text'><strong>Descrição: </strong>{$prato['Descricao_Prato']}</p>
                                     <p class='card-text'><strong>Ingredientes: </strong>{$ingredientesFormatados}</p>
@@ -94,7 +96,6 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
                             </div>
                         </div>
                     </div>
-                </div>
                 ";
 
                 echo "
@@ -140,6 +141,8 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
                     </div>
                 ";
             }
+
+            echo "</div>";
         }
         // =================================================================
 

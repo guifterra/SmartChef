@@ -3,18 +3,19 @@ include("conexao.php");
 
 if (isset($_POST["user"]) && isset($_POST["password"])) {
     $username = $_POST["user"];
+    $email = $username;
     $password = $_POST["password"];
 
     if ($username == "" || $password == "") {
-        die(header("HTTP/1.0 401 Preenche todos os campos do formulario"));
+        die(header("HTTP/1.0 401 Preencha todos os campos do formulario!"));
     }
 
-    $padrao = '/^[A-Za-z_.-]+$/';
+    $padrao = '/^[A-Za-z_.@-]+$/';
 
     if (preg_match($padrao, $username)) {
         $username =  strtoupper($username);
     } else {
-        die(header("HTTP/1.0 401 O nome de usuario apresenta caracteres invalidos"));
+        die(header("HTTP/1.0 401 O nome de usuario apresenta caracteres invalidos!"));
     }
 
     /*
@@ -28,8 +29,8 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
     }
     */
 
-    $stmt = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO, SENHA FROM USER WHERE USERNAME = ? LIMIT 1");
-    $stmt->bind_param("s", $username);
+    $stmt = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO, SENHA FROM USER WHERE USERNAME = ? OR EMAIL = ? LIMIT 1");
+    $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
 
@@ -42,8 +43,8 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
         setcookie("FUNCAO", $user['FUNCAO'], time() + (10 * 365 * 24 * 60 * 60));
         return true;
     } else {
-        if (!password_verify($password, $user['SENHA'])) $batata = 'oi';
-        die(header("HTTP/1.0 401 Usiario e/ou senha incorreto" . $batata));
+        if (!password_verify($password, $user['SENHA']))
+        die(header("HTTP/1.0 401 Usuario ou Senha incorreto"));
     }
 } else {
     die(header("HTTP/1.0 401 Formulario de autenticacao invalido"));
