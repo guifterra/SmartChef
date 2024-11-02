@@ -3,7 +3,6 @@ include("conexao.php");
 
 if (isset($_POST["user"]) && isset($_POST["password"])) {
     $username = $_POST["user"];
-    $email = $username;
     $password = $_POST["password"];
 
     if ($username == "" || $password == "") {
@@ -29,8 +28,8 @@ if (isset($_POST["user"]) && isset($_POST["password"])) {
     }
     */
 
-    $stmt = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO, SENHA FROM USER WHERE USERNAME = ? OR EMAIL = ? LIMIT 1");
-    $stmt->bind_param("ss", $username, $email);
+    $stmt = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO, SENHA FROM USER WHERE USERNAME = ? LIMIT 1");
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $user = $stmt->get_result()->fetch_assoc();
 

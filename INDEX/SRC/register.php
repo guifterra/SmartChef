@@ -83,9 +83,9 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
     $token = bin2hex(openssl_random_pseudo_bytes(20));
     $key = rand(100000000, 999999999);
 
-    $stmt = $con->prepare("INSERT INTO USER (`ID`,`EMPRESA_ID`, `USERNAME`, `EMAIL`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`) VALUES (0, ?, ?, ?, ?, 'ADM', ?, ?, '1')");
+    $stmt = $con->prepare("INSERT INTO USER (`ID`,`EMPRESA_ID`, `USERNAME`, `SENHA`, `FUNCAO`, `TOKEN`, `KEY`, `VALIDO`) VALUES (0, ?, ?, ?, 'ADM', ?, ?, '1')");
     $tempusername = $username;
-    $stmt->bind_param("issssi", $EMPRESA_ID, $tempusername, $email, $password, $token, $key);
+    $stmt->bind_param("isssi", $EMPRESA_ID, $tempusername, $password, $token, $key);
     $stmt->execute();
 
     $getUser = $con->prepare("SELECT EMPRESA_ID, ID, TOKEN, `KEY`, FUNCAO FROM USER WHERE USERNAME = ? and `TOKEN` = ? and `KEY` = ?");
