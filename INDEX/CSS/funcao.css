@@ -24,11 +24,11 @@
     box-shadow: 2px 2px var(--preto);
 }
 
-.botao-cancelar{
+.botao-voltar{
     border: 2px solid var(--vermelho-escuro);
 }
 
-.botao-cancelar:hover{
+.botao-voltar:hover{
     background-color: var(--vermelho-medio);
     color: var(--branco);
 }
