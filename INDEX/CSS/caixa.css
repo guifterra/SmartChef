@@ -1,0 +1,84 @@
+@import url(global.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /*Lembrar: Define duas colunas de largura igual */
+    gap: 80px; /*lembrar: Espaçamento entre as colunas */
+    padding: 40px;
+}  
+
+.mesa{
+    text-align: center;
+    color: var(--vermelho-escuro);
+    font-weight: bolder;
+    background-color: var(--amarelo);
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.mesa h3{
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.card-corpo{
+    background-color: var(--branco);
+    border-radius: 5px;
+}
+
+.card-corpo-infos{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.titulo {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 15px;
+}
+
+.linha {
+display: flex;
+justify-content: space-between;
+margin-bottom: 8px;
+}
+
+.linha-total, .linha-desconto, .linha-final {
+font-weight: bold;
+}
+
+.linha-desconto span {
+color: red;
+}
+
+.botoes-container {
+display: flex;
+justify-content: space-between;
+margin-top: 20px;
+background-color: var(--amarelo-medio);
+padding: 15px;
+border-bottom-left-radius: 5px;
+border-bottom-right-radius: 5px;
+}
+
+.botao {
+padding: 8px 12px;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-weight: bold;
+color: #fff;
+}
+.cancelar { background-color: #d9534f; }
+.subtrair { background-color: #f0ad4e; }
+.finalizar { background-color: #5cb85c; }

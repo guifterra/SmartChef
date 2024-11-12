@@ -2,15 +2,15 @@
 $con = mysqli_connect('localhost', 'root', '1234');
 
 if (!$con) {
-    echo "Falha ao ligar a base de dados: " . mysqli_connect_error();
+    echo "Falha ao conectar com a base de dados: " . mysqli_connect_error();
     exit();
 }
 
 $sql = file_get_contents('sql.sql');
 
-// Execute as consultas SQL
 $queries = explode(';', $sql);
 foreach ($queries as $query) {
+    $query = trim($query); 
     if (!empty($query)) {
         $con->query($query);
     }

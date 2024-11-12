@@ -58,13 +58,14 @@ body{
 }
 
 .log-out{
-  background-color: var(--vermelho-escuro);
-  border-radius: 15px;
+  background-color: var(--vermelho-medio);
+  border: none;
   display: grid;
 }
 
 .log-out:hover{
   background-color: var(--laranja-claro);
+  border-radius: 10px;
 }
 
 main {

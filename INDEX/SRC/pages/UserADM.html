@@ -5,8 +5,8 @@
     <nav id="sidebar" class="open-sidebar">
         <div id="sidebar_content">
             <ul id="side_items" class="p-0">
-                <li class="side-item active">
-                    <a href="">
+                <li class="side-item active" id="botao-home">
+                    <a>
                         <i class='bx bxs-home' ></i>
                         <span class="item-description">
                             Home
@@ -14,8 +14,8 @@
                     </a>
                 </li>
     
-                <li class="side-item">
-                    <a href="">
+                <li class="side-item" id="botao-cadastros">
+                    <a>
                         <i class='bx bxs-search-alt-2' ></i>
                         <span class="item-description">
                             Cadastros
@@ -23,8 +23,8 @@
                     </a>
                 </li>
     
-                <li class="side-item">
-                    <a href="">
+                <li class="side-item" id="botao-mesas">
+                    <a>
                         <i class='bx bx-desktop' ></i>
                         <span class="item-description">
                             Mesas
@@ -32,8 +32,8 @@
                     </a>
                 </li>
     
-                <li class="side-item">
-                    <a href="">
+                <li class="side-item" id="botao-historico">
+                    <a>
                         <i class='bx bxs-home' ></i>
                         <span class="item-description">
                             Histórico
@@ -41,8 +41,8 @@
                     </a>
                 </li>
     
-                <li class="side-item">
-                    <a href="">
+                <li class="side-item" id="botao-administrar">
+                    <a>
                         <i class='bx bxs-edit-alt'></i>
                         <span class="item-description">
                             Administrar
@@ -58,10 +58,89 @@
 
     </nav>
 
-    <div id="main-content">
-        <h1>exemplo</h1>
-    </div>
+    <div id="main-content"></div>
 </div>
 
+<script>
+    
+    function getHome() {
+        $.ajax({
+            url: './SRC/components/home.html',
+            success: function (data) {
+                $('#main-content').html(data);
+            }
+        });
+    }
 
-<script src="adm.js"></script>
+    function getCadastros() {
+        $.ajax({
+            url: './SRC/components/cadastros.html',
+            success: function (data) {
+                $('#main-content').html(data);
+            }
+        });
+    }
+
+    function getAdministrar() {
+        $.ajax({
+            url: './SRC/components/administrar.html',
+            success: function (data) {
+                $('#main-content').html(data);
+            }
+        });
+    }
+
+    function getHistorico() {
+        $.ajax({
+            url: './SRC/components/historico.html',
+            success: function (data) {
+                $('#main-content').html(data);
+            }
+        });
+    }
+
+    function getMesas() {
+        $.ajax({
+            url: './SRC/components/mesas.html',
+            success: function (data) {
+                $('#main-content').html(data);
+            }
+        });
+    }
+    
+    $(document).ready(function() {
+    
+        getHome();
+
+        $(document).on('click', '#botao-home', function(e) {
+            
+            getHome();
+
+        });
+
+        $(document).on('click', '#botao-cadastros', function(e) {
+            
+            getCadastros();
+
+        });
+
+        $(document).on('click', '#botao-administrar', function(e) {
+            
+            getAdministrar();
+
+        });
+
+        $(document).on('click', '#botao-historico', function(e) {
+            
+            getHistorico();
+
+        });
+
+        $(document).on('click', '#botao-mesas', function(e) {
+            
+            getMesas();
+
+        });
+    });
+
+</script>

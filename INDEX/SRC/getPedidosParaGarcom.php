@@ -104,10 +104,10 @@ if (count($pedidoIDs) > 0) {
         echo "
             <div class='corpo'>
                 <div class='card produto' style='width: 18rem;'>
-                    <div class='$corDeFundo container-status p-2'>
-                        <h5 class='card-title text-center'>STATUS</h5>
-                    </div>
                     <div class='card-body'>
+                        <div class='$corDeFundo p-2' style='border-radius: 5px'>
+                        <h5 class='card-title text-center' style='font-weight: bold;'>Pedido ".$pedidoID."</h5>
+                        </div>
                         <hr>
                         <h5 class='card-title'>Entrega para a mesa: ".$pedido['Numero_da_Mesa']." </h5>
                         <hr>

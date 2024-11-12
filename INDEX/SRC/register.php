@@ -14,6 +14,18 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
         die(header("HTTP/1.0 401 Preencha todos os campos do formulario"));
     }
 
+    // Verificação do tamanho do telefone após remover caracteres especiais
+    $telefoneLimpo = preg_replace('/\D/', '', $telefone);
+    if (strlen($telefoneLimpo) != 11) {
+        die(header("HTTP/1.0 401 Telefone invalido. O formato deve ser: (00) 0 0000-0000"));
+    }
+
+    // Verificação do tamanho do CNPJ após remover caracteres especiais
+    $cnpjLimpo = preg_replace('/\D/', '', $cnpj);
+    if (strlen($cnpjLimpo) != 14) {
+        die(header("HTTP/1.0 401 CNPJ invalido. O formato deve ser: 00.000.000/0000-00"));
+    }
+
     $padrao = '/^[A-Za-z_-]+$/';
 
     if (preg_match($padrao, $username)) {
@@ -22,13 +34,13 @@ if (isset($_POST["user"]) && isset($_POST["telefone"]) && isset($_POST["cnpj"]) 
         die(header("HTTP/1.0 401 O nome de usuario apresenta caracteres invalidos"));
     }
 
-    /*
+    
     $padrao = '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/';
 
     if (!preg_match($padrao, $password)) {
         die(header("HTTP/1.0 401 Senha não atende aos requisitos de segurança."));
     }
-    */
+    
 
     $checkuser = $con->prepare("SELECT ID FROM EMPRESA WHERE USERNAME = ?");
     $checkuser->bind_param("s", $username);

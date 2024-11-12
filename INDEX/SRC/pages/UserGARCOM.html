@@ -13,122 +13,180 @@
       background-color: rgb(235, 235, 31) !important;
   }
   .fundo-normal {
-      background-color: rgb(52, 212, 52);
+      background-color: rgb(5, 145, 5);
   }
 
-  .container-status{
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    box-shadow: 5x 5px 5px black;
+  .testeBotao{
+    padding-top: 20px;
+    padding-left: 10px;
+    background-color: var;
   }
 </style>
+
+<div id="BOTAO" class="testeBotao"></div>
+
+<!-- Modal template -->
+<div class="modal fade" id="mesaModal" tabindex="-1" aria-labelledby="mesaModalLabel" aria-hidden="true">
+    <div id="qrDaMesa"></div>
+</div>
+
 
 <div id="PEDIDOS" class="testeImprovisado"></div>
 
 <script>
     $(document).ready(function() {
-    
-      load();
+    // Carrega os botões de mesa
+    loadMesas();
 
-      $(document).on('click', '.botao-entrega', function(e) {
-          e.preventDefault();
+    // Carrega a lista de pedidos
+    load();
 
-          // Obtém o ID do pedido
-          let pedido_id = $(this).data('pedido-id'); 
+    // Evento para clicar no botão da mesa
+    $(document).on('click', '.btn-mesa', function() {
+        let mesaId = $(this).data('mesa-id'); // Obtém o ID da mesa
 
-          $.ajax({
-              url: 'SRC/putConcluirEntregaDoPedido.php', // URL do arquivo PHP que irá fazer o update
-              type: 'POST',
-              data: { pedido_id: pedido_id }, // Envia o ID do pedido para o PHP
-              success: function(response) {
-                  // Parseia o JSON retornado
-                  let res = JSON.parse(response);
+        // Requisição Ajax para carregar o QR Code da mesa
+        $.ajax({
+            url: 'SRC/getQRCodeMesa.php', // O novo arquivo PHP que gera o QR Code
+            type: 'POST',
+            data: { mesa_id: mesaId }, // Envia o ID da mesa via POST
+            success: function(response) {
+                // Insere o conteúdo do modal na div com id "qrDaMesa"
+                $('#qrDaMesa').html(response);
 
-                  if (res.success) {
-                      Swal.fire({
-                          title: 'Sucesso!',
-                          text: res.message, // Mensagem de sucesso
-                          icon: 'success',
-                          confirmButtonText: 'Ok'
-                      }).then(() => {
-                          load(); // Recarrega os pedidos após fechar o alerta
-                      });
-                  } else {
-                      Swal.fire({
-                          title: 'Erro',
-                          text: res.message, // Mensagem de erro retornada pelo PHP
-                          icon: 'error',
-                          confirmButtonText: 'Ok'
-                      });
-                  }
-              },
-              error: function(error) {
-                  console.log(error); // Apenas para debug no console, se necessário
-
-                  Swal.fire({
-                      title: 'Erro',
-                      text: error.statusText, // Mensagem de erro padrão do Ajax
-                      icon: 'error',
-                      confirmButtonText: 'Ok'
-                  });
-              }
-          });
-      });
-
-      $(document).on('click', '.botao-voltar', function(e) {
-          e.preventDefault();
-
-          // Obtém o ID do pedido
-          let pedido_id = $(this).data('pedido-id'); 
-
-          $.ajax({
-              url: 'SRC/putDevolverPedidoACozinha.php', // URL do arquivo PHP que irá fazer o update
-              type: 'POST',
-              data: { pedido_id: pedido_id }, // Envia o ID do pedido para o PHP
-              success: function(response) {
-                  // Parseia o JSON retornado
-                  let res = JSON.parse(response);
-
-                  if (res.success) {
-                      Swal.fire({
-                          title: 'Sucesso!',
-                          text: res.message, // Mensagem de sucesso
-                          icon: 'success',
-                          confirmButtonText: 'Ok'
-                      }).then(() => {
-                          load(); // Recarrega os pedidos após fechar o alerta
-                      });
-                  } else {
-                      Swal.fire({
-                          title: 'Erro',
-                          text: res.message, // Mensagem de erro retornada pelo PHP
-                          icon: 'error',
-                          confirmButtonText: 'Ok'
-                      });
-                  }
-              },
-              error: function(error) {
-                  console.log(error); // Apenas para debug no console, se necessário
-
-                  Swal.fire({
-                      title: 'Erro',
-                      text: error.statusText, // Mensagem de erro padrão do Ajax
-                      icon: 'error',
-                      confirmButtonText: 'Ok'
-                  });
-              }
-          });
-      });
+                // Exibe o modal
+                $('#mesaModal').modal('show');
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire({
+                    title: 'Erro',
+                    text: error.statusText,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
     });
 
+    // Evento para clicar no botão de concluir entrega
+    $(document).on('click', '.botao-entrega', function(e) {
+        e.preventDefault();
+
+        // Obtém o ID do pedido
+        let pedido_id = $(this).data('pedido-id'); 
+
+        $.ajax({
+            url: 'SRC/putConcluirEntregaDoPedido.php', // URL do arquivo PHP que faz o update
+            type: 'POST',
+            data: { pedido_id: pedido_id }, // Envia o ID do pedido para o PHP
+            success: function(response) {
+                // Parseia o JSON retornado
+                let res = JSON.parse(response);
+
+                if (res.success) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: res.message, // Mensagem de sucesso
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then(() => {
+                        load(); // Recarrega os pedidos após fechar o alerta
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Erro',
+                        text: res.message, // Mensagem de erro retornada pelo PHP
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            },
+            error: function(error) {
+                console.log(error); // Apenas para debug no console, se necessário
+
+                Swal.fire({
+                    title: 'Erro',
+                    text: error.statusText, // Mensagem de erro padrão do Ajax
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    // Evento para clicar no botão de devolver o pedido à cozinha
+    $(document).on('click', '.botao-voltar', function(e) {
+        e.preventDefault();
+
+        // Obtém o ID do pedido
+        let pedido_id = $(this).data('pedido-id'); 
+
+        $.ajax({
+            url: 'SRC/putDevolverPedidoACozinha.php', // URL do arquivo PHP que faz o update
+            type: 'POST',
+            data: { pedido_id: pedido_id }, // Envia o ID do pedido para o PHP
+            success: function(response) {
+                // Parseia o JSON retornado
+                let res = JSON.parse(response);
+
+                if (res.success) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: res.message, // Mensagem de sucesso
+                        icon: 'success',
+                        confirmButtonText: 'Ok'
+                    }).then(() => {
+                        load(); // Recarrega os pedidos após fechar o alerta
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Erro',
+                        text: res.message, // Mensagem de erro retornada pelo PHP
+                        icon: 'error',
+                        confirmButtonText: 'Ok'
+                    });
+                }
+            },
+            error: function(error) {
+                console.log(error); // Apenas para debug no console, se necessário
+
+                Swal.fire({
+                    title: 'Erro',
+                    text: error.statusText, // Mensagem de erro padrão do Ajax
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    // Função para carregar os botões de mesa
+    function loadMesas() {
+        $.ajax({
+            url: 'SRC/getMesas.php', // URL que irá retornar os botões das mesas
+            success: function(data) {
+                $('#BOTAO').html(data); // Insere os botões de mesa na div #BOTAO
+            }
+        });
+
+        setTimeout(loadMesas, 3000); // Recarrega os pedidos a cada 3 segundos
+    }
+
+    // Função para recarregar a lista de pedidos
     function load() {
         $.ajax({
             url: 'SRC/getPedidosParaGarcom.php',
-            success: function (data) {
+            success: function(data) {
                 $('#PEDIDOS').html(data);
             }
         });
-        setTimeout(load, 3000)
+
+        setTimeout(load, 3000); // Recarrega os pedidos a cada 3 segundos
     }
+});
 
 </script>
+
+<!-- JS do Bootstrap no final do <body> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

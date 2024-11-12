@@ -8,7 +8,7 @@ if ($_COOKIE['FUNCAO'] == 'ADM') {
 } elseif ($_COOKIE['FUNCAO'] == 'GARCOM') {
     include("pages/UserGARCOM.html");
 } elseif ($_COOKIE['FUNCAO'] == 'CAIXA') {
-    include("pages/UserCAIXA.php");
+    include("pages/UserCAIXA.html");
 } else {
     include("logout.php");
 }

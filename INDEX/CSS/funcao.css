@@ -13,24 +13,44 @@
     margin: 30px;
 }
 
-.botao-entrega{
+.botao-entrega, .botao-mesas{
     background-color: var(--laranja-claro);
     color: var(--branco);
 }
 
-.botao-entrega:hover{
+.botao-entrega:hover, .botao-mesas:hover{
     background-color: var(--laranja);
     color: var(--branco);
     box-shadow: 2px 2px var(--preto);
 }
 
-.botao-voltar{
+.bota-fechar{
+    background-color: var(--vermelho-medio);
+    color: var(--branco);
+}
+
+.bota-fechar:hover{
+    background-color: var(--vermelho-escuro);
+    color: var(--branco);
+}
+
+.botao-cancelar{
     border: 2px solid var(--vermelho-escuro);
 }
 
-.botao-voltar:hover{
+.botao-cancelar:hover{
     background-color: var(--vermelho-medio);
     color: var(--branco);
+}
+
+.botao-voltar{
+    background-color: var(--laranja);
+    color: var(--branco);
+}
+
+.titulo-mesa{
+    color: var(--vermelho-escuro);
+    font-weight: bolder;
 }
 
 .produto{

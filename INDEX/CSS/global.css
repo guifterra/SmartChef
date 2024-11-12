@@ -14,3 +14,18 @@ body {
 button {
     cursor: pointer;
 }
+
+:root {
+    --vermelho-escuro: #3e0101;
+    --vermelho-medio: #730202;
+    --laranja: #BF2604;
+    --laranja-claro: #D97904;
+    --amarelo: #F2B705;
+    --amarelo-medio: #fbe49c;
+    --amarelo-claro: #fef9dc;
+    --branco: #fff;
+    --preto: #111;
+    --cinza: #727171;
+    --verde: #13bc2c;
+    --vermelho: #e10505;
+}
