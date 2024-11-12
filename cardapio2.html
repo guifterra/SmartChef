@@ -125,6 +125,7 @@ main {
             </div>
         </div>
     </main>
+
     <div class="fundo-footer">
     <footer class="barra-footer text-light py-3">
         <div class="container">
@@ -216,7 +217,7 @@ main {
                 $('#CARDAPIO_DA_EMPRESA').html(data);
             },
             error: function () {
-                console.error('Erro ao carregar o cardápio');
+                $('#CARDAPIO_DA_EMPRESA').html("<p class='text-center'>Erro ao carregar cardapio! Seu link é invalido, peça ao Garçom para lhe dar o QR Code de acesso</p>");
             }
         });
     }

@@ -48,6 +48,7 @@ html, body {
 
 .corpo {
     padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .item {
@@ -63,6 +64,9 @@ html, body {
     border-radius: 10px;
     width: 400px;
     height: 100%;
+    object-fit: cover; /* Preenche o container sem distorcer a imagem */
+    object-position: center; /* Centraliza a imagem no container */
+    background-color: rgb(230, 230, 230);
 }
 
 .item .card-body {

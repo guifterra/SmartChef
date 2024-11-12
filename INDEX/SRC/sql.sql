@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `PI22024`.`CARDAPIO` (
     `INGREDIENTES` JSON NULL,
     `ADICIONAIS` JSON NULL,
     `PRECO` DOUBLE NOT NULL,
-    `IMG` VARCHAR(500) NOT NULL DEFAULT './FILES/CARDAPIO/DEFAULT.png',
+    `IMG` VARCHAR(500) NOT NULL DEFAULT 'DEFAULT.png',
     `CATEGORIA` VARCHAR(45) NOT NULL,
     `STATUS` TINYINT NOT NULL,
     PRIMARY KEY (`ID`),
@@ -153,44 +153,53 @@ VALUES
 
 
 -- Inserir dados na tabela CARDAPIO
-INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`, `IMG`)
 VALUES 
 (1, 'Hamburguer Simples', 'Hamburguer com pão, carne e queijo', 
     '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', 
     '[{"nome": "Bacon", "alergicos": [], "preco": 2.50}, {"nome": "Ovo", "alergicos": [], "preco": 1.50}]', 
-    15.99, 'Lanche', 1),
+    15.99, 'Lanche', 1, 'hamburguer_simples.png'),
+    
 (1, 'Salada Caesar', 'Salada com alface, frango e molho caesar', 
     '[{"nome": "Alface", "alergicos": []}, {"nome": "Frango", "alergicos": []}, {"nome": "Molho Caesar", "alergicos": ["lactose"]}]', 
     '[{"nome": "Croutons", "alergicos": ["gluten"], "preco": 3.00}, {"nome": "Parmesão", "alergicos": ["lactose"], "preco": 2.00}]', 
-    19.99, 'Salada', 1),
+    19.99, 'Salada', 1, 'salada_caesar.png'),
+    
 (1, 'Pizza Marguerita', 'Pizza de queijo e tomate', 
     '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Tomate", "alergicos": []}]', 
     '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}, {"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 
-    29.99, 'Pizza', 1),
+    29.99, 'Pizza', 1, 'pizza_marguerita.png'),
+    
 (1, 'Cheeseburger', 'Hambúrguer com queijo, alface e tomate', 
     '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Alface", "alergicos": []}, {"nome": "Tomate", "alergicos": []}]', 
     '[{"nome": "Maionese", "alergicos": ["ovos"], "preco": 1.00}, {"nome": "Bacon", "alergicos": [], "preco": 2.50}]', 
-    17.50, 'Lanche', 1),
+    17.50, 'Lanche', 1, 'cheeseburger.png'),
+    
 (1, 'Salada de Frutas', 'Salada de frutas frescas da estação', 
     '[{"nome": "Maçã", "alergicos": []}, {"nome": "Banana", "alergicos": []}, {"nome": "Laranja", "alergicos": []}]', 
     '[{"nome": "Granola", "alergicos": ["gluten"], "preco": 2.00}, {"nome": "Mel", "alergicos": [], "preco": 1.50}]', 
-    12.99, 'Salada', 1),
+    12.99, 'Salada', 1, 'salada_de_frutas.png'),
+    
 (1, 'Pizza Calabresa', 'Pizza com calabresa, queijo e cebola', 
     '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Calabresa", "alergicos": []}, {"nome": "Cebola", "alergicos": []}]', 
     '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}, {"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 
-    31.99, 'Pizza', 1),
+    31.99, 'Pizza', 1, 'pizza_calabresa.png'),
+    
 (1, 'Suco Natural', 'Suco natural de laranja', 
     '[{"nome": "Laranja", "alergicos": []}]', 
     '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}, {"nome": "Açúcar", "alergicos": [], "preco": 0.00}]', 
-    7.50, 'Bebida', 1),
+    7.50, 'Bebida', 1, 'suco_natural.png'),
+    
 (1, 'Refrigerante', 'Refrigerante lata 350ml', 
     '[{"nome": "Refrigerante", "alergicos": []}]', 
     '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 
-    5.00, 'Bebida', 1),
+    5.00, 'Bebida', 1, 'refrigerante.png'),
+    
 (1, 'Suco Detox', 'Suco detox com couve e limão', 
     '[{"nome": "Couve", "alergicos": []}, {"nome": "Limão", "alergicos": []}]', 
     '[{"nome": "Gengibre", "alergicos": [], "preco": 0.50}, {"nome": "Mel", "alergicos": [], "preco": 1.00}]', 
-    9.99, 'Bebida', 1);
+    9.99, 'Bebida', 1, 'suco_detox.png');
+
 
 -- Inserir dados na tabela MESA
 INSERT INTO `PI22024`.`MESA` (`EMPRESA_ID`, `NUMERO`, `TOKEN`)
@@ -234,34 +243,34 @@ VALUES
 -- Inserir dados adicionais na tabela CARDAPIO
 
 -- Categoria Lanche
-INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`, `IMG`)
 VALUES 
-(1, 'Cheeseburger Duplo', 'Hambúrguer duplo com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Bacon", "alergicos": [], "preco": 2.50}]', 20.99, 'Lanche', 1),
-(1, 'X-Bacon', 'Hambúrguer com queijo e bacon', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Bacon", "alergicos": []}]', '[{"nome": "Maionese", "alergicos": ["ovos"], "preco": 1.00}]', 18.99, 'Lanche', 1),
-(1, 'Hot Dog', 'Cachorro quente com salsicha e molhos', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Salsicha", "alergicos": []}]', '[{"nome": "Queijo ralado", "alergicos": ["lactose"], "preco": 1.50}]', 10.99, 'Lanche', 1),
-(1, 'Chicken Burger', 'Hambúrguer de frango com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Frango", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Alface", "alergicos": [], "preco": 1.00}]', 17.50, 'Lanche', 1),
-(1, 'Veggie Burger', 'Hambúrguer vegetariano com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Hambúrguer vegetariano", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Tomate", "alergicos": [], "preco": 0.50}]', 15.50, 'Lanche', 1);
+(1, 'Cheeseburger Duplo', 'Hambúrguer duplo com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Bacon", "alergicos": [], "preco": 2.50}]', 20.99, 'Lanche', 1, 'cheeseburger_duplo.png'),
+(1, 'X-Bacon', 'Hambúrguer com queijo e bacon', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Carne", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Bacon", "alergicos": []}]', '[{"nome": "Maionese", "alergicos": ["ovos"], "preco": 1.00}]', 18.99, 'Lanche', 1, 'x_bacon.png'),
+(1, 'Hot Dog', 'Cachorro quente com salsicha e molhos', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Salsicha", "alergicos": []}]', '[{"nome": "Queijo ralado", "alergicos": ["lactose"], "preco": 1.50}]', 10.99, 'Lanche', 1, 'hot_dog.png'),
+(1, 'Chicken Burger', 'Hambúrguer de frango com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Frango", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Alface", "alergicos": [], "preco": 1.00}]', 17.50, 'Lanche', 1, 'chicken_burger.png'),
+(1, 'Veggie Burger', 'Hambúrguer vegetariano com queijo', '[{"nome": "Pão", "alergicos": ["gluten"]}, {"nome": "Hambúrguer vegetariano", "alergicos": []}, {"nome": "Queijo", "alergicos": ["lactose"]}]', '[{"nome": "Tomate", "alergicos": [], "preco": 0.50}]', 15.50, 'Lanche', 1, 'veggie_burger.png');
 
 -- Categoria Pizza
-INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`, `IMG`)
 VALUES 
-(1, 'Pizza Portuguesa', 'Pizza com presunto, ovos, e cebola', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Presunto", "alergicos": []}, {"nome": "Ovo", "alergicos": ["ovos"]}, {"nome": "Cebola", "alergicos": []}]', '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 34.99, 'Pizza', 1),
-(1, 'Pizza Quatro Queijos', 'Pizza com quatro tipos de queijo', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo mussarela", "alergicos": ["lactose"]}, {"nome": "Queijo parmesão", "alergicos": ["lactose"]}, {"nome": "Queijo gorgonzola", "alergicos": ["lactose"]}]', '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 36.99, 'Pizza', 1),
-(1, 'Pizza de Frango com Catupiry', 'Pizza com frango e catupiry', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Frango", "alergicos": []}, {"nome": "Catupiry", "alergicos": ["lactose"]}]', '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 35.99, 'Pizza', 1),
-(1, 'Pizza Pepperoni', 'Pizza com pepperoni e queijo', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Pepperoni", "alergicos": []}]', '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 32.99, 'Pizza', 1);
+(1, 'Pizza Portuguesa', 'Pizza com presunto, ovos, e cebola', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Presunto", "alergicos": []}, {"nome": "Ovo", "alergicos": ["ovos"]}, {"nome": "Cebola", "alergicos": []}]', '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 34.99, 'Pizza', 1, 'pizza_portuguesa.png'),
+(1, 'Pizza Quatro Queijos', 'Pizza com quatro tipos de queijo', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo mussarela", "alergicos": ["lactose"]}, {"nome": "Queijo parmesão", "alergicos": ["lactose"]}, {"nome": "Queijo gorgonzola", "alergicos": ["lactose"]}]', '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 36.99, 'Pizza', 1, 'pizza_quatro_queijos.png'),
+(1, 'Pizza de Frango com Catupiry', 'Pizza com frango e catupiry', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Frango", "alergicos": []}, {"nome": "Catupiry", "alergicos": ["lactose"]}]', '[{"nome": "Orégano", "alergicos": [], "preco": 0.50}]', 35.99, 'Pizza', 1, 'pizza_frango_catupiry.png'),
+(1, 'Pizza Pepperoni', 'Pizza com pepperoni e queijo', '[{"nome": "Massa", "alergicos": ["gluten"]}, {"nome": "Queijo", "alergicos": ["lactose"]}, {"nome": "Pepperoni", "alergicos": []}]', '[{"nome": "Azeitona", "alergicos": [], "preco": 1.50}]', 32.99, 'Pizza', 1, 'pizza_pepperoni.png');
 
 -- Categoria Bebida
-INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`, `IMG`)
 VALUES 
-(1, 'Água Mineral', 'Água mineral sem gás', '[{"nome": "Água mineral", "alergicos": []}]', '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 3.00, 'Bebida', 1),
-(1, 'Café', 'Café expresso', '[{"nome": "Café", "alergicos": []}]', '[{"nome": "Açúcar", "alergicos": [], "preco": 0.00}]', 5.00, 'Bebida', 1),
-(1, 'Chá Gelado', 'Chá gelado de limão', '[{"nome": "Chá", "alergicos": []}, {"nome": "Limão", "alergicos": []}]', '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 6.50, 'Bebida', 1);
+(1, 'Água Mineral', 'Água mineral sem gás', '[{"nome": "Água mineral", "alergicos": []}]', '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 3.00, 'Bebida', 1, 'agua_mineral.png'),
+(1, 'Café', 'Café expresso', '[{"nome": "Café", "alergicos": []}]', '[{"nome": "Açúcar", "alergicos": [], "preco": 0.00}]', 5.00, 'Bebida', 1, 'cafe.png'),
+(1, 'Chá Gelado', 'Chá gelado de limão', '[{"nome": "Chá", "alergicos": []}, {"nome": "Limão", "alergicos": []}]', '[{"nome": "Gelo", "alergicos": [], "preco": 0.00}]', 6.50, 'Bebida', 1, 'cha_gelado.png');
 
 -- Categoria Salada
-INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`)
+INSERT INTO `PI22024`.`CARDAPIO` (`EMPRESA_ID`, `NOME`, `DESCRICAO`, `INGREDIENTES`, `ADICIONAIS`, `PRECO`, `CATEGORIA`, `STATUS`, `IMG`)
 VALUES 
-(1, 'Salada Grega', 'Salada com tomate, pepino e queijo feta', '[{"nome": "Tomate", "alergicos": []}, {"nome": "Pepino", "alergicos": []}, {"nome": "Queijo feta", "alergicos": ["lactose"]}]', '[{"nome": "Azeite", "alergicos": [], "preco": 0.50}]', 18.00, 'Salada', 1),
-(1, 'Salada de Atum', 'Salada com atum e alface', '[{"nome": "Atum", "alergicos": []}, {"nome": "Alface", "alergicos": []}]', '[{"nome": "Croutons", "alergicos": ["gluten"], "preco": 1.50}]', 16.50, 'Salada', 1);
+(1, 'Salada Grega', 'Salada com tomate, pepino e queijo feta', '[{"nome": "Tomate", "alergicos": []}, {"nome": "Pepino", "alergicos": []}, {"nome": "Queijo feta", "alergicos": ["lactose"]}]', '[{"nome": "Azeite", "alergicos": [], "preco": 0.50}]', 18.00, 'Salada', 1, 'salada_grega.png'),
+(1, 'Salada de Atum', 'Salada com atum e alface', '[{"nome": "Atum", "alergicos": []}, {"nome": "Alface", "alergicos": []}]', '[{"nome": "Croutons", "alergicos": ["gluten"], "preco": 1.50}]', 16.50, 'Salada', 1, 'salada_de_atum.png');
 
 -- Inserir dados adicionais na tabela MESA
 INSERT INTO `PI22024`.`MESA` (`EMPRESA_ID`, `NUMERO`, `TOKEN`)

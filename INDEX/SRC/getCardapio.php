@@ -1,17 +1,11 @@
 <?php
-// ===================================================
-// Não enxergo necessidade de passar o numero da mesa
-// ===================================================
-// $numeroMesa  = $_GET['SCnumeroMesa'];
 
-//  Exemplo de Link: http://localhost/PI-Dev-Version/INDEX/SRC/getCardapio.php?SCempresaId=1&SCnumeroMesa=1&SCtokenMesa=TOKEN_MESA_1
-
-if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
-    if( $_GET['SCempresaId'] != '' && $_GET['SCtokenMesa'] != '' ){
+if (isset($_GET['SCempresaId']) && isset($_GET['SCtokenMesa'])) {
+    if ($_GET['SCempresaId'] != '' && $_GET['SCtokenMesa'] != '') {
 
         include('conexao.php');
 
-        $empresaId   = $_GET['SCempresaId'];
+        $empresaId = $_GET['SCempresaId'];
         $tokenDaMesa = $_GET['SCtokenMesa'];
 
         $checkTokenMesa = $con->prepare("SELECT ID FROM MESA WHERE TOKEN = ?");
@@ -30,6 +24,7 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
             INGREDIENTES AS Ingredientes,
             ADICIONAIS AS Adicionais,
             PRECO AS Preco_Prato,
+            IMG AS Imagem_Prato,
             CATEGORIA AS Nome_Categoria
         FROM 
             PI22024.CARDAPIO
@@ -45,7 +40,6 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
 
         $cardapioAgrupado = [];
 
-        // Agrupando os pratos por categoria
         while ($prato = $stmt->fetch_assoc()) {
             $categoria = $prato['Nome_Categoria'];
             if (!isset($cardapioAgrupado[$categoria])) {
@@ -54,9 +48,8 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
             $cardapioAgrupado[$categoria][] = $prato;
         }
 
-        // IMPRESSAO REFINADA ==============================================
         foreach ($cardapioAgrupado as $categoria => $pratos) {
-            
+
             echo "
                 <div class='categoria'>
                     <h2>$categoria</h2>
@@ -66,29 +59,27 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
                 <div class='row'>
             ";
 
-            
             foreach ($pratos as $prato) {
-                // Transformar JSON dos ingredientes e adicionais em arrays
                 $ingredientesArray = json_decode($prato['Ingredientes'], true);
                 $adicionaisArray = json_decode($prato['Adicionais'], true);
 
-                // Extrair apenas os nomes dos ingredientes
                 $ingredientesNomes = array_column($ingredientesArray, 'nome');
                 $ingredientesFormatados = implode(", ", $ingredientesNomes);
+
+                $precoFormatado = number_format($prato['Preco_Prato'], 2, ',', '.');
 
                 echo "
                     <div class='item col-12 col-md-12 col-lg-6 d-flex flex-column align-items-center'>
                         <div class='row'>
                             <div class='col-4 container-img-cardapio'>
-                                <img src='https://picsum.photos/400/800' class='img-fluid' alt='...'>
+                                <img src='./FILES/CARDAPIO/{$prato['Imagem_Prato']}' class='img-fluid' alt='...'>
                             </div>
                             <div class='col-8'>
-                                
                                 <div class='card-body text-center ps-4'>
                                     <h5 class='nome-item'>{$prato['Nome_Prato']}</h5>
                                     <p class='card-text'><strong>Descrição: </strong>{$prato['Descricao_Prato']}</p>
                                     <p class='card-text'><strong>Ingredientes: </strong>{$ingredientesFormatados}</p>
-                                    <h5 class='preco'>R$ {$prato['Preco_Prato']}</h5>
+                                    <h5 class='preco'>R$ {$precoFormatado}</h5>
                                     <div class='d-flex justify-content-end pe-4'>
                                         <a href='#' class='btn botao' data-bs-toggle='modal' data-bs-target='#addToCartModal{$prato['Id_Prato']}'>Adicionar ao carrinho</a>
                                     </div>
@@ -116,20 +107,49 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
                                             <label for='observation' class='form-label'>Observação</label>
                                             <textarea class='form-control' id='observation' rows='3' placeholder='Insira suas observações/mudanças aqui'></textarea>
                                         </div>
-                                        <div class='mb-3'>
-                                            <label class='form-label'>Opções de Adicional</label><br>
-                    ";
+                ";
 
+                // Exibir Alergênicos, caso existam
+                $alergenicosExistem = array_filter($ingredientesArray, fn($item) => !empty($item['alergicos']));
+                if (!empty($alergenicosExistem)) {
+                    echo "
+                        <div class='mb-3'>
+                            <label class='form-label'>Alergênicos</label><br>
+                    ";
+                    foreach ($ingredientesArray as $ingrediente) {
+                        if (!empty($ingrediente['alergicos'])) {
+                            foreach ($ingrediente['alergicos'] as $alergico) {
+                                echo "
+                                    <div>
+                                        <input type='checkbox' name='alergenicos[]' value='{$alergico}'>
+                                        <label>{$alergico}</label>
+                                    </div>
+                                ";
+                            }
+                        }
+                    }
+                    echo "</div>";
+                }
+
+                // Exibir Opções de Adicional, caso existam
+                if (!empty($adicionaisArray)) {
+                    echo "
+                        <div class='mb-3'>
+                            <label class='form-label'>Opções de Adicional</label><br>
+                    ";
                     foreach ($adicionaisArray as $adicional) {
+                        $precoAdicionalFormatado = number_format($adicional['preco'], 2, ',', '.');
                         echo "
                             <div>
                                 <input type='checkbox' name='adicionais[]' value='{$adicional['nome']}'>
-                                <label for='option1'>{$adicional['nome']} (R$ {$adicional['preco']})</label>
+                                <label>{$adicional['nome']} (R$ {$precoAdicionalFormatado})</label>
                             </div>
                         ";
                     }
+                    echo "</div>";
+                }
 
-                    echo "              </div>
+                echo "
                                     </form>
                                 </div>
                                 <div class='modal-footer'>
@@ -144,52 +164,6 @@ if( isset( $_GET['SCempresaId'] ) && isset( $_GET['SCtokenMesa'] ) ){
 
             echo "</div>";
         }
-        // =================================================================
-
-        // Imprimindo os pratos agrupados por categoria
-        // foreach ($cardapioAgrupado as $categoria => $pratos) {
-            
-        //     echo "<h2>$categoria</h2>"; // Título da categoria
-        //     echo "<div class='categoria'>";
-
-        //     foreach ($pratos as $prato) {
-        //         // Transformar JSON dos ingredientes e adicionais em arrays
-        //         $ingredientesArray = json_decode($prato['Ingredientes'], true);
-        //         $adicionaisArray = json_decode($prato['Adicionais'], true);
-
-        //         // Extrair apenas os nomes dos ingredientes
-        //         $ingredientesNomes = array_column($ingredientesArray, 'nome');
-        //         $ingredientesFormatados = implode(", ", $ingredientesNomes);
-
-        //         echo "
-        //             <div class='prato'>
-        //                 <h3>{$prato['Nome_Prato']}</h3>
-        //                 <p><strong>Descrição:</strong> {$prato['Descricao_Prato']}</p>
-        //                 <p><strong>Ingredientes:</strong> $ingredientesFormatados</p>
-        //                 <p><strong>Adicionais:</strong></p>
-        //                 <div class='adicionais'>
-        //         ";
-
-        //         // Exibindo os adicionais como checkboxes
-        //         foreach ($adicionaisArray as $adicional) {
-        //             echo "
-        //                 <label>
-        //                     <input type='checkbox' name='adicionais[]' value='{$adicional['nome']}'>
-        //                     {$adicional['nome']}
-        //                 </label><br>
-        //             ";
-        //         }
-
-        //         echo "
-        //                 </div>
-        //                 <p><strong>Preço:</strong> R$ {$prato['Preco_Prato']}</p>
-        //                 <hr>
-        //             </div>
-        //         ";
-        //     }
-
-        //     echo "</div>"; // Fecha o div da categoria
-        // }
     }
 }
 ?>
