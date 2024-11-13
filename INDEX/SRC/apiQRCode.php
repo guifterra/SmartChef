@@ -38,6 +38,5 @@ if ($result->num_rows > 0) {
 } else {
     // Retorna 404 se as condições não forem atendidas
     http_response_code(404);
-    echo "Mesa ou token inválido.";
 }
 ?>
