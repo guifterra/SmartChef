@@ -1,2 +1,71 @@
-<p>Criar as opções de administrar aqui ( components / administrar.html )</p>
-<p>Acho q é controle de conta de users / funcionários no sistema (RECUPERAÇÃO DE SENHA / TROCA DE FUNÇÃO / ATIVAR / DESATIVAR CONTAS)</p>
+<!-- <p>Criar as opções de administrar aqui ( components / administrar.html )</p>
+<p>Acho q é controle de conta de users / funcionários no sistema (RECUPERAÇÃO DE SENHA / TROCA DE FUNÇÃO / ATIVAR / DESATIVAR CONTAS)</p> -->
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.teste {
+    margin-left: 15px;
+    width: 80vw;
+ /* Centraliza horizontalmente */
+}
+
+.tabela-func-content{
+    text-align: center;
+}
+
+.editar{
+    text-align: center;
+}
+
+/* Aplica bordas em todas as células e cabeçalhos */
+.table, .table th, .table td {
+    border: 1px solid #ddd; /* Cor das bordas (pode ser alterada) */
+    border-collapse: collapse; /* Garante que as bordas não se sobreponham */
+}
+
+.table th, .table td {
+    padding: 8px; /* Define o espaçamento interno das células */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f5d880; /* Cor de fundo alternada */
+}
+
+.table th {
+    background-color: #F2B705; /* Cor de fundo dos cabeçalhos */
+}
+
+</style>
+
+<div>
+    <h3 class="ps-3 pt-2" style="color: #3e0101;">Gerenciamento de contas de funcionários</h3>
+    <hr class="pb-3">
+</div>
+
+<div id="funcionarios" class="teste"></div>
+
+<script>
+    $(document).ready(function() {
+    
+    load();
+
+      
+  });
+
+    function load() {
+        $.ajax({
+            url: 'SRC/getContasFuncionarios.php',
+            success: function (data) {
+                $('#funcionarios').html(data);
+            }
+        });
+
+        
+        setTimeout(load, 3000)
+    }
+</script>

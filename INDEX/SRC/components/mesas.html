@@ -1,2 +1,50 @@
-<p>Criar as opções de mesa aqui ( components / mesas.html )</p>
-<p>Acho q é controle de quantidad de mesas</p>
+<div class="conteudo-cadastro">
+    <!-- Corpo -->
+    <div class="corpo-cadastro-adm">
+        <div class="titulo">
+            <h3>Edição de mesas</h3>
+        </div>
+
+        <div class="formulario-adm" id="">
+            <div class="titulo">
+                <h3>Mesas</h3>
+            </div>
+            <form action="" class="campos-form-adm">
+                <div class="campo">
+                    <label for="username">Insira o número de mesas</label>
+                    <input type="text" id="">
+                </div>
+                
+                <div class="botoes-form">
+                    <button type="submit" class="botao-enviar">Definir</button>
+                    <button type="submit" class="botao-redefinir">Redefinir</button>
+                    <button type="reset" class="botao-limpar">Limpar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="MESAS"></div>
+
+<script>
+    $(document).ready(function() {
+    
+    load();
+
+      
+  });
+
+    function load() {
+        $.ajax({
+            url: 'SRC/getMesasCaixa.php',
+            success: function (data) {
+                $('#MESAS').html(data);
+            }
+        });
+
+        
+        setTimeout(load, 3000)
+    }
+</script>
+

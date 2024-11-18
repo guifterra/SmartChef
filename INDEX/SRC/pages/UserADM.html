@@ -1,5 +1,11 @@
+<link rel="stylesheet" href="CSS/bootstrap.css">
 <link rel="stylesheet" href="CSS/adm.css">
-<script src="JS/adm.js"></script> 
+<link rel="stylesheet" href="CSS/cadastroadm.css">
+
+
+<script src="JS/adm.js"></script>
+<script src="JS/bootstrap.js"></script>
+<script src="JS/cadastros.js"></script> 
 
 <div id="body-adm">
     <nav id="sidebar" class="open-sidebar">
@@ -60,14 +66,13 @@
 
     <div id="main-content"></div>
 </div>
-
 <script>
-    
     function getHome() {
         $.ajax({
             url: './SRC/components/home.html',
             success: function (data) {
                 $('#main-content').html(data);
+                updateActiveTab('#botao-home');
             }
         });
     }
@@ -77,6 +82,7 @@
             url: './SRC/components/cadastros.html',
             success: function (data) {
                 $('#main-content').html(data);
+                updateActiveTab('#botao-cadastros');
             }
         });
     }
@@ -86,6 +92,7 @@
             url: './SRC/components/administrar.html',
             success: function (data) {
                 $('#main-content').html(data);
+                updateActiveTab('#botao-administrar');
             }
         });
     }
@@ -95,6 +102,7 @@
             url: './SRC/components/historico.html',
             success: function (data) {
                 $('#main-content').html(data);
+                updateActiveTab('#botao-historico');
             }
         });
     }
@@ -104,43 +112,42 @@
             url: './SRC/components/mesas.html',
             success: function (data) {
                 $('#main-content').html(data);
+                updateActiveTab('#botao-mesas');
             }
         });
     }
-    
+
+    // Função para atualizar a classe "active" na navegação
+    function updateActiveTab(activeTabId) {
+        // Remove a classe "active" de todos os itens
+        $('#side_items li').removeClass('active');
+        // Adiciona a classe "active" ao item clicado
+        $(activeTabId).addClass('active');
+    }
+
     $(document).ready(function() {
     
-        getHome();
+        getHome(); // Inicializa a página com o conteúdo da home
 
+        // Event listeners para os botões de navegação
         $(document).on('click', '#botao-home', function(e) {
-            
             getHome();
-
         });
 
         $(document).on('click', '#botao-cadastros', function(e) {
-            
             getCadastros();
-
         });
 
         $(document).on('click', '#botao-administrar', function(e) {
-            
             getAdministrar();
-
         });
 
         $(document).on('click', '#botao-historico', function(e) {
-            
             getHistorico();
-
         });
 
         $(document).on('click', '#botao-mesas', function(e) {
-            
             getMesas();
-
         });
     });
-
 </script>
