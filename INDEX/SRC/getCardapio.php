@@ -117,14 +117,16 @@ if (isset($_GET['SCempresaId']) && isset($_GET['SCtokenMesa'])) {
                                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                                     </div>
                                     <div class='modal-body'>
-                                        <form>
+                                        <form id='formulario-{$prato['Id_Prato']}'>
                                             <div class='mb-3'>
                                                 <label for='quantity' class='form-label'>Quantidade</label>
-                                                <input type='number' class='form-control' id='quantity' min='1' value='1'>
+                                                <input type='number' class='form-control' id='quantity' name='quantity' min='1' value='1'>
+                                                <input type='hidden' name='cardapio_id' value='{$prato['Id_Prato']}'>
+                                                <input type='hidden' name='preco' value='{$prato['Preco_Prato']}'>
                                             </div>
                                             <div class='mb-3'>
                                                 <label for='observation' class='form-label'>Observação</label>
-                                                <textarea class='form-control' id='observation' rows='3' placeholder='Insira suas observações/mudanças aqui'></textarea>
+                                                <textarea class='form-control' id='observation' name='observation' rows='3' placeholder='Insira suas observações/mudanças aqui'></textarea>
                                             </div>
                     ";
 
@@ -160,7 +162,7 @@ if (isset($_GET['SCempresaId']) && isset($_GET['SCtokenMesa'])) {
                             $precoAdicionalFormatado = number_format($adicional['preco'], 2, ',', '.');
                             echo "
                                 <div>
-                                    <input type='checkbox' name='adicionais[]' value='{$adicional['nome']}'>
+                                    <input type='checkbox' name='adicionais[]' value='{$adicional['nome']}&{$adicional['preco']}'>
                                     <label>{$adicional['nome']} (R$ {$precoAdicionalFormatado})</label>
                                 </div>
                             ";
@@ -169,11 +171,11 @@ if (isset($_GET['SCempresaId']) && isset($_GET['SCtokenMesa'])) {
                     }
 
                     echo "
+                                            <div class='modal-footer'>
+                                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Fechar</button>
+                                            <button type='button' class='btn btn-primary botao-adicionar-ao-carrinho' data-form-id='formulario-{$prato['Id_Prato']}'>Adicionar ao Carrinho</button>
+                                        </div>
                                         </form>
-                                    </div>
-                                    <div class='modal-footer'>
-                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Fechar</button>
-                                        <button type='button' class='btn btn-primary'>Adicionar ao Carrinho</button>
                                     </div>
                                 </div>
                             </div>
