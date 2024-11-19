@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     $url_qr = "https://api.qrserver.com/v1/create-qr-code/?data=$texto&size=$tamanho";
 
     // Exibindo o QR code na página
-    echo "<img src='$url_qr' alt='QR Code' class='img-fluid' />";
+    echo "<a href='$linkDoCardapio'><img src='$url_qr' alt='QR Code' class='img-fluid' /></a>";
 } else {
     // Retorna 404 se as condições não forem atendidas
     http_response_code(404);

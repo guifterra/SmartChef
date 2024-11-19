@@ -10,7 +10,7 @@
     <script src="JS/bootstrap.bundle.js"></script>
     <script src="INDEX/JS/jquery.js"></script>
     <script src="INDEX/JS/sweetalert2.js"></script>
-    
+    <link rel="stylesheet" href="INDEX/CSS/sweetalert2.css">
 </head>
 <style>
 
@@ -30,15 +30,17 @@ main {
 
 .barra-footer {
   background-color: var(--laranja-claro);
-  min-height: 100px;
+  text-align: center;
+}
+
+.fundo-footer{
+    background-color: var(--laranja-claro);
 }
 </style>
 <body class="bg-corpo">
     <nav class="navbar navbar-expand bg-cardapio">
         <div class="container-fluid">
-            <div class="nome-empresa">
-                <h5>Nome empresa</h5>
-            </div>
+            <div class="nome-empresa" id="nomeDaEmpresa"></div>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <!-- Ícone de QR Scan que abre o modal -->
                 <li class="nav-item">
@@ -53,7 +55,7 @@ main {
     </nav>
 
     <main>
-        <p>http://localhost/PI-Dev-Version/cardapio.html?SCempresaId=1&SCnumeroMesa=1&SCtokenMesa=TOKEN_MESA_1</p>
+        <p style="color: #fef9dc;">http://localhost/SmartChef-main/cardapio.html?SCempresaId=1&SCnumeroMesa=1&SCtokenMesa=TOKEN_MESA_1</p>
         <div class="container corpo" id="CARDAPIO_DA_EMPRESA"></div>
         
         <!-- Modal do QR Scan -->
@@ -124,8 +126,9 @@ main {
             </div>
         </div>
     </main>
-    
-    <footer class="barra-footer text-light py-2">
+
+    <div class="fundo-footer">
+    <footer class="barra-footer text-light py-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -158,13 +161,71 @@ main {
             </div>
         </div>
     </footer>
+    </div>
     
 <script src="JS/bootstrap.bundle.js"></script>
 <script>
     $(document).ready(function() {
         load();
         geraQRCode();
+        getNomeDaEmpresa();
     });
+
+    $(document).on('click', '.botao-adicionar-ao-carrinho', function (e) {
+    e.preventDefault();
+
+    // Obtém o ID do formulário a partir do atributo data-form-id
+    var formId = $(this).data('form-id');
+
+    // Seleciona o formulário e serializa os dados
+    var formData = $('#' + formId).serialize();
+
+    // Envia os dados via AJAX
+    $.ajax({
+        url: './INDEX/SRC/adicionarAoCarrinho.php', // Substitua pelo seu arquivo PHP
+        type: 'POST',
+        data: formData,
+        success: function (response) {
+            // Lida com o sucesso (exibe mensagem, atualiza o carrinho, etc.)
+            Swal.fire({
+                          title: 'Sucesso!',
+                          text: 'Pedido adicionado ao carrinho com sucesso!', // Mensagem de sucesso
+                          icon: 'success',
+                          confirmButtonText: 'Ok'
+                      });
+        },
+        error: function (xhr, status, error) {
+            // Lida com erros (exibe mensagem de erro, etc.)
+            alert('Erro ao adicionar o produto ao carrinho!');
+            console.error(error);
+        }
+    });
+});
+
+
+    function getNomeDaEmpresa(){
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const empresaId = urlParams.get('SCempresaId');
+
+        if (!empresaId) {
+            $('#nomeDaEmpresa').html("<h5>Empresa não identificada</h5>");
+            return;
+        }else{
+
+            const getNomeDaEmpresaUrl = `./INDEX/SRC/getNomeDaEmpresa.php?SCempresaId=${empresaId}`;
+            $.ajax({
+                url: getNomeDaEmpresaUrl,
+                success: function (data) {
+                    $('#nomeDaEmpresa').html(data);
+                },
+                error: function () {
+                    $('#nomeDaEmpresa').html("<h5>Empresa ID invalido</h5>");
+                }
+            });
+
+        }
+    }
 
     function load() {
         // Captura os parâmetros da URL
@@ -189,7 +250,7 @@ main {
                 $('#CARDAPIO_DA_EMPRESA').html(data);
             },
             error: function () {
-                console.error('Erro ao carregar o cardápio');
+                $('#CARDAPIO_DA_EMPRESA').html("<p class='text-center'>Erro ao carregar cardapio! Seu link é invalido, peça ao Garçom para lhe dar o QR Code de acesso</p>");
             }
         });
     }
@@ -203,7 +264,7 @@ main {
 
         // Se os parâmetros não forem encontrados, você pode exibir um erro ou definir um valor padrão
         if (!empresaId || !numeroMesa || !tokenMesa) {
-            console.error('Parâmetros da mesa não encontrados na URL');
+            $('#QR_CODE_CARDAPIO').html("<p>Você não possui todos os identificadores! Peça ao Garçom para gerar um QR Code para voce.</p>");
             return;
         }
 
@@ -217,7 +278,7 @@ main {
                 $('#QR_CODE_CARDAPIO').html(data);
             },
             error: function () {
-                console.error('Erro ao carregar o QRCode');
+                $('#QR_CODE_CARDAPIO').html("<p>Identificadores invalidos! Peça ao Garçom para gerar um novo QR Code para voce.</p>");
             }
         });
     }

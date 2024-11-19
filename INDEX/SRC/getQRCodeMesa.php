@@ -34,7 +34,7 @@ if ($mesa = $result->fetch_assoc()) {
                     <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
                 </div>
                 <div class='modal-body d-flex justify-content-center'>
-                    <img src='$url_qr' alt='QR Code da Mesa {$mesa['NUMERO']}' class='img-fluid' />
+                    <a href='$linkDoCardapio'><img src='$url_qr' alt='QR Code da Mesa {$mesa['NUMERO']}' class='img-fluid' /></a>
                 </div>
                 <div class='modal-footer'>
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Fechar</button>
