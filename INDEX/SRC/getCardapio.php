@@ -121,6 +121,7 @@ if (isset($_GET['SCempresaId']) && isset($_GET['SCtokenMesa'])) {
                                             <div class='mb-3'>
                                                 <label for='quantity' class='form-label'>Quantidade</label>
                                                 <input type='number' class='form-control' id='quantity' name='quantity' min='1' value='1'>
+                                                <input type='hidden' name='nomePrato' value='{$prato['Nome_Prato']}'>
                                                 <input type='hidden' name='cardapio_id' value='{$prato['Id_Prato']}'>
                                                 <input type='hidden' name='preco' value='{$prato['Preco_Prato']}'>
                                             </div>

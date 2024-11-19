@@ -48,7 +48,7 @@ main {
                 </li>
                 <!-- Ícone de Carrinho que abre o modal -->
                 <li class="nav-item">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="nav-link"><i class='bx bxs-cart fs-3'></i></a>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="nav-link botao-ver-carrinho"><i class='bx bxs-cart fs-3'></i></a>
                 </li>
             </ul>
         </div>
@@ -85,39 +85,7 @@ main {
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="row mb-2">
-                            <div class="col-8">
-                                <p class="nome-item">Nome do Item</p>
-                                <p><span style="font-weight: bold;">Descrição:</span> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, officiis?</p>
-                            </div>
-                            <div class="col-4 text-end">
-                                <p class="quantidade"><span style="font-weight: bold;">Quantidade:</span> 2</p>
-                                <p class="preco">R$ 12,00</p>
-                                <div>
-                                    <a href="" class="adicionar"><i class='bx bx-plus-medical'></i></a>
-                                    <a href="" class="subtrair"><i class='bx bx-minus'></i></a>
-                                    <a href="" class="remover"><i class='bx bx-trash'></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr>
-                        <div class="row mb-2">
-                            <div class="col-8">
-                                <p class="nome-item">Outro Item</p>
-                                <p><span style="font-weight: bold;">Descrição:</span> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, officiis?</p>
-                            </div>
-                            <div class="col-4 text-end">
-                                <p class="quantidade"><span style="font-weight: bold;">Quantidade:</span> 1</p>
-                                <p class="preco">R$ 8,00</p>
-                                <div>
-                                    <a href="" class="adicionar"><i class='bx bx-plus-medical'></i></a>
-                                    <a href="" class="subtrair"><i class='bx bx-minus'></i></a>
-                                    <a href="" class="remover"><i class='bx bx-trash'></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Adicione mais itens conforme necessário -->
+                        <div class="row mb-2" id="dadosDoCarrinho"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
@@ -172,36 +140,82 @@ main {
     });
 
     $(document).on('click', '.botao-adicionar-ao-carrinho', function (e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    // Obtém o ID do formulário a partir do atributo data-form-id
-    var formId = $(this).data('form-id');
+        // Obtém o ID do formulário a partir do atributo data-form-id
+        var formId = $(this).data('form-id');
 
-    // Seleciona o formulário e serializa os dados
-    var formData = $('#' + formId).serialize();
+        // Seleciona o formulário e serializa os dados
+        var formData = $('#' + formId).serialize();
 
-    // Envia os dados via AJAX
-    $.ajax({
-        url: './INDEX/SRC/adicionarAoCarrinho.php', // Substitua pelo seu arquivo PHP
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-            // Lida com o sucesso (exibe mensagem, atualiza o carrinho, etc.)
-            Swal.fire({
-                          title: 'Sucesso!',
-                          text: 'Pedido adicionado ao carrinho com sucesso!', // Mensagem de sucesso
-                          icon: 'success',
-                          confirmButtonText: 'Ok'
-                      });
-        },
-        error: function (xhr, status, error) {
-            // Lida com erros (exibe mensagem de erro, etc.)
-            alert('Erro ao adicionar o produto ao carrinho!');
-            console.error(error);
-        }
+        // Envia os dados via AJAX
+        $.ajax({
+            url: './INDEX/SRC/adicionarAoCarrinho.php', // Substitua pelo seu arquivo PHP
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Pedido adicionado ao carrinho com sucesso!', // Mensagem de sucesso
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            },
+            error: function (xhr, status, error) {
+                
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao adicionar itens ao carrinho!', // Mensagem de sucesso
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
     });
-});
 
+    $(document).on('click', '.botao-ver-carrinho', function (e) {
+        e.preventDefault();
+
+        // Captura os parâmetros da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const empresaId = urlParams.get('SCempresaId');
+        const numeroMesa = urlParams.get('SCnumeroMesa');
+        const tokenMesa = urlParams.get('SCtokenMesa');
+
+        // Se os parâmetros não forem encontrados, você pode exibir um erro ou definir um valor padrão
+        if (!empresaId || !numeroMesa || !tokenMesa) {
+            Swal.fire({
+                title: 'Erro',
+                text: 'Erro ao abrir o carrinho!',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+            return;
+        }
+
+        // Constrói a URL com os parâmetros
+        const getDadosDoCarrinho = `./INDEX/SRC/getItensDoCarrinho.php?SCempresaId=${empresaId}&SCnumeroMesa=${numeroMesa}&SCtokenMesa=${tokenMesa}`;
+
+        // Envia os dados via AJAX
+        $.ajax({
+            url: getDadosDoCarrinho, // Substitua pelo seu arquivo PHP
+            type: 'POST',
+            success: function (data) {
+                
+                $('#dadosDoCarrinho').html(data);
+            },
+            error: function () {
+                
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao adicionar itens ao carrinho!', // Mensagem de sucesso
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
 
     function getNomeDaEmpresa(){
         

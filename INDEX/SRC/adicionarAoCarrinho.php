@@ -1,12 +1,17 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    
     $quantidade = $_POST['quantity'] ?? '';
     $observacao = $_POST['observation'] ?? '';
     $cardapioID = $_POST['cardapio_id'] ?? '';
     $preco      = $_POST['preco'] ?? '';
+    $nome = $_POST['nomePrato'] ?? '';
     $alergicos  = $_POST['alergenicos'] ?? [];
     $adicionais = $_POST['adicionais'] ?? [];
+
+    if( $observacao == '' ){
+        $observacao = "Comum, sem detalhes extras";
+    }
 
     session_start();
 
@@ -15,12 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['SCitems'] = [];
     }
 
+    if (!isset($_SESSION['SCitemID'])) {
+        $_SESSION['SCitemID'] = 1; // Começa o ID em 1
+    } else {
+        $_SESSION['SCitemID']++; // Incrementa o ID
+    }
+
     // Adiciona os novos dados ao array
     $_SESSION['SCitems'][] = [
+        'id'         => $_SESSION['SCitemID'],
         'quantidade' => $quantidade,
         'observacao' => $observacao,
         'cardapioID' => $cardapioID,
         'preco'      => $preco,
+        'nomePrato'  => $nome,
         'alergicos'  => $alergicos,
         'adicionais' => $adicionais
     ];
