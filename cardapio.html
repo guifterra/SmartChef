@@ -36,6 +36,12 @@ main {
 .fundo-footer{
     background-color: var(--laranja-claro);
 }
+
+.btn-acoes {
+    all: unset; /* Remove todos os estilos aplicados pelo navegador */
+    cursor: pointer; /* Adiciona o cursor de clique */
+}
+
 </style>
 <body class="bg-corpo">
     <nav class="navbar navbar-expand bg-cardapio">
@@ -176,6 +182,10 @@ main {
 
     $(document).on('click', '.botao-ver-carrinho', function (e) {
         e.preventDefault();
+        carregarDadosDoCarrinho();
+    });
+
+    function carregarDadosDoCarrinho(){
 
         // Captura os parâmetros da URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -210,6 +220,81 @@ main {
                 Swal.fire({
                     title: 'Erro',
                     text: 'Erro ao adicionar itens ao carrinho!', // Mensagem de sucesso
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    }
+
+    $(document).on('click', '.btn-adicionar-item', function (e) {
+        e.preventDefault();
+        
+        const itemId = $(this).val();
+        const addQtDoItem = `./INDEX/SRC/addQtDoItem.php?SCitemId=${itemId}`;
+
+        $.ajax({
+            url: addQtDoItem, // Substitua pelo seu arquivo PHP
+            type: 'POST',
+            success: function () {
+                
+                carregarDadosDoCarrinho();
+            },
+            error: function () {
+                
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao adicionar item ao carrinho!', // Mensagem de sucesso
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-subtrair-item', function (e) {
+        e.preventDefault();
+        
+        const itemId = $(this).val();
+        const subQtDoItem = `./INDEX/SRC/subQtDoItem.php?SCitemId=${itemId}`;
+
+        $.ajax({
+            url: subQtDoItem, // Substitua pelo seu arquivo PHP
+            type: 'POST',
+            success: function () {
+                
+                carregarDadosDoCarrinho();
+            },
+            error: function () {
+                
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao reduzir item do carrinho!', // Mensagem de sucesso
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-remover-item', function (e) {
+        e.preventDefault();
+        
+        const itemId = $(this).val();
+        const remQtDoItem = `./INDEX/SRC/removeItemDoCarrinho.php?SCitemId=${itemId}`;
+
+        $.ajax({
+            url: remQtDoItem, // Substitua pelo seu arquivo PHP
+            type: 'POST',
+            success: function () {
+                
+                carregarDadosDoCarrinho();
+            },
+            error: function () {
+                
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao remover item do carrinho!', // Mensagem de sucesso
                     icon: 'error',
                     confirmButtonText: 'Ok'
                 });
