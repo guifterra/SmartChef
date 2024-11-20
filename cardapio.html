@@ -94,6 +94,7 @@ main {
                         <div class="row mb-2" id="dadosDoCarrinho"></div>
                     </div>
                     <div class="modal-footer">
+                        <button type="button" class="btn botao-concluir">Concluir</button>
                         <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
@@ -295,6 +296,48 @@ main {
                 Swal.fire({
                     title: 'Erro',
                     text: 'Erro ao remover item do carrinho!', // Mensagem de sucesso
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.botao-concluir', function (e) {
+        e.preventDefault();
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const empresaId = urlParams.get('SCempresaId');
+        const numeroMesa = urlParams.get('SCnumeroMesa');
+        const tokenMesa = urlParams.get('SCtokenMesa');
+
+        // Se os parâmetros não forem encontrados, você pode exibir um erro ou definir um valor padrão
+        if (!empresaId || !numeroMesa || !tokenMesa) {
+            console.error('Parâmetros da mesa não encontrados na URL');
+            return;
+        }
+
+        const setPedidoDoCarrinho = `./INDEX/SRC/setPedidoDoCarrinho.php?SCempresaId=${empresaId}&SCnumeroMesa=${numeroMesa}&SCtokenMesa=${tokenMesa}`;
+
+        $.ajax({
+            url: setPedidoDoCarrinho, 
+            type: 'POST',
+            success: function () {
+                
+                carregarDadosDoCarrinho();
+
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Pedido enviado para cozinha com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            },
+            error: function () {
+                
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao concluir seu pedido, carrinho vazio ou falha no processo!',
                     icon: 'error',
                     confirmButtonText: 'Ok'
                 });

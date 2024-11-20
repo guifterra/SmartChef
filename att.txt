@@ -1,9 +1,3 @@
-----------
-
-Completar tela cardapio 
-
------------
-
 MESA (Trazer dados da comanda)
 - Oq importa é a comanda
 - Trazer os dados 
@@ -14,7 +8,3 @@ Checar se comanda tá aberta (Se tiver pedido lá, eu adiciono + pedidos)
 Um php Testa se a mesa tem pedidos
 Volta pro histórico 
 Historico atr de 5 em 5s
-
-Atualizar e fazer o carrinho, ele atualiza de 5 e 5
-
-Quando confirmar no carrinho - Vai pro banco no historico

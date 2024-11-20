@@ -140,6 +140,16 @@ html, body {
   background-color: var(--amarelo);
 }
 
+.botao-concluir{
+  background-color: var(--laranja);
+  color: var(--branco);
+  font-weight: bold;
+}
+
+.botao-concluir:hover{
+  background-color: var(--amarelo);
+}
+
 /* Footer */
 
 .barra-footer{
