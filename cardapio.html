@@ -52,6 +52,9 @@ main {
                 <li class="nav-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#qrModal" class="nav-link"><i class='bx bx-qr-scan fs-3'></i></a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#pedtModal" class="nav-link botao-ver-pedidos"><i class='bx bxs-detail fs-3'></i></a>
+                </li>
                 <!-- Ícone de Carrinho que abre o modal -->
                 <li class="nav-item">
                     <a href="#" data-bs-toggle="modal" data-bs-target="#cartModal" class="nav-link botao-ver-carrinho"><i class='bx bxs-cart fs-3'></i></a>
@@ -95,6 +98,24 @@ main {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn botao-concluir">Concluir</button>
+                        <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Modal dos Pedidos Feitos -->
+         <div class="modal fade" id="pedtModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cartModalLabel">Pedidos Feitos Anteriormente</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-2" id="dadosDePedidosRealizados"></div>
+                    </div>
+                    <div class="modal-footer">
                         <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
                     </div>
                 </div>
@@ -186,6 +207,11 @@ main {
         carregarDadosDoCarrinho();
     });
 
+    $(document).on('click', '.botao-ver-pedidos', function (e) {
+        e.preventDefault();
+        carregarPedidosJaFeitos();
+    });
+
     function carregarDadosDoCarrinho(){
 
         // Captura os parâmetros da URL
@@ -220,12 +246,54 @@ main {
                 
                 Swal.fire({
                     title: 'Erro',
-                    text: 'Erro ao adicionar itens ao carrinho!', // Mensagem de sucesso
+                    text: 'Erro ao carregar itens do carrinho!', // Mensagem de sucesso
                     icon: 'error',
                     confirmButtonText: 'Ok'
                 });
             }
         });
+    }
+
+    function carregarPedidosJaFeitos(){
+
+    // Captura os parâmetros da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const empresaId = urlParams.get('SCempresaId');
+    const numeroMesa = urlParams.get('SCnumeroMesa');
+    const tokenMesa = urlParams.get('SCtokenMesa');
+
+    // Se os parâmetros não forem encontrados, você pode exibir um erro ou definir um valor padrão
+    if (!empresaId || !numeroMesa || !tokenMesa) {
+        Swal.fire({
+            title: 'Erro',
+            text: 'Erro carregar pedidos!',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+        });
+        return;
+    }
+
+    // Constrói a URL com os parâmetros
+    const getPedidosJaFeitos = `./INDEX/SRC/getPedidosJaFeitos.php?SCempresaId=${empresaId}&SCnumeroMesa=${numeroMesa}&SCtokenMesa=${tokenMesa}`;
+
+    // Envia os dados via AJAX
+    $.ajax({
+        url: getPedidosJaFeitos, // Substitua pelo seu arquivo PHP
+        type: 'POST',
+        success: function (data) {
+            
+            $('#dadosDePedidosRealizados').html(data);
+        },
+        error: function () {
+            
+            Swal.fire({
+                title: 'Erro',
+                text: 'Erro ao carregar pedidos já realizados!', // Mensagem de sucesso
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
     }
 
     $(document).on('click', '.btn-adicionar-item', function (e) {
