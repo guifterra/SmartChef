@@ -1,174 +1,37 @@
-<!-- <div class="container-grid">
-    <div class="card-mesa">
-        <div class="mesa">
-            <h3>MESA 1</h3>
-        </div>
-        <div class="card-corpo">
-            <div class="card-corpo-infos">
-                <div class="pedidos">
-                    <div class="titulo">Pedido nº X</div>
-        
-                    <hr>
+<style>
+    .my-confirm-button{
+        background-color: rgb(17, 221, 17);
+    }
 
-                    <div class="linha"><span>Item 1</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 2</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 3</span><span>R$100</span></div>
-                </div>
-            
-                <hr>
+    .my-cancel-button{
+        background-color: red;
+    }
+</style>
 
-                <div class="linha linha-total"><span>Total</span><span>R$300</span></div>
-                <div class="linha linha-desconto"><span>Valor subtraído</span><span>-R$100</span></div>
-                <div class="linha linha-final"><span>Total a pagar</span><span>R$200</span></div>
+<!-- Modal de Cancelamento de Itens -->
+<div class="modal fade" id="pedtModalCaixa" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Pedidos da Mesa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            
-            <div class="botoes-container">
-                <button class="botao cancelar">Cancelar comanda</button>
-                <button class="botao subtrair">Subtrair do total</button>
-                <button class="botao finalizar">Finalizar comanda</button>
+            <div class="modal-body">
+                <div class="row mb-2" id="pedidosACancelarCaixa"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
-        
     </div>
-
-    <div class="card-mesa">
-        <div class="mesa">
-            <h3>MESA 1</h3>
-        </div>
-        <div class="card-corpo">
-            <div class="card-corpo-infos">
-                <div class="pedidos">
-                    <div class="titulo">Pedido nº X</div>
-        
-                    <hr>
-
-                    <div class="linha"><span>Item 1</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 2</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 3</span><span>R$100</span></div>
-                </div>
-            
-                <hr>
-
-                <div class="linha linha-total"><span>Total</span><span>R$300</span></div>
-                <div class="linha linha-desconto"><span>Valor subtraído</span><span>-R$100</span></div>
-                <div class="linha linha-final"><span>Total a pagar</span><span>R$200</span></div>
-            </div>
-            
-            <div class="botoes-container">
-                <button class="botao cancelar">Cancelar comanda</button>
-                <button class="botao subtrair">Subtrair do total</button>
-                <button class="botao finalizar">Finalizar comanda</button>
-            </div>
-        </div>
-        
-    </div>
-
-    <div class="card-mesa">
-        <div class="mesa">
-            <h3>MESA 1</h3>
-        </div>
-        <div class="card-corpo">
-            <div class="card-corpo-infos">
-                <div class="pedidos">
-                    <div class="titulo">Pedido nº X</div>
-        
-                    <hr>
-
-                    <div class="linha"><span>Item 1</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 2</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 3</span><span>R$100</span></div>
-                </div>
-            
-                <hr>
-
-                <div class="linha linha-total"><span>Total</span><span>R$300</span></div>
-                <div class="linha linha-desconto"><span>Valor subtraído</span><span>-R$100</span></div>
-                <div class="linha linha-final"><span>Total a pagar</span><span>R$200</span></div>
-            </div>
-            
-            <div class="botoes-container">
-                <button class="botao cancelar">Cancelar comanda</button>
-                <button class="botao subtrair">Subtrair do total</button>
-                <button class="botao finalizar">Finalizar comanda</button>
-            </div>
-        </div>
-        
-    </div>
-    
-    <div class="card-mesa">
-        <div class="mesa">
-            <h3>MESA 1</h3>
-        </div>
-        <div class="card-corpo">
-            <div class="card-corpo-infos">
-                <div class="pedidos">
-                    <div class="titulo">Pedido nº X</div>
-        
-                    <hr>
-
-                    <div class="linha"><span>Item 1</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 2</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 3</span><span>R$100</span></div>
-                </div>
-            
-                <hr>
-
-                <div class="linha linha-total"><span>Total</span><span>R$300</span></div>
-                <div class="linha linha-desconto"><span>Valor subtraído</span><span>-R$100</span></div>
-                <div class="linha linha-final"><span>Total a pagar</span><span>R$200</span></div>
-            </div>
-            
-            <div class="botoes-container">
-                <button class="botao cancelar">Cancelar comanda</button>
-                <button class="botao subtrair">Subtrair do total</button>
-                <button class="botao finalizar">Finalizar comanda</button>
-            </div>
-        </div>
-        
-    </div>
-
-    <div class="card-mesa">
-        <div class="mesa">
-            <h3>MESA 1</h3>
-        </div>
-        <div class="card-corpo">
-            <div class="card-corpo-infos">
-                <div class="pedidos">
-                    <div class="titulo">Pedido nº X</div>
-        
-                    <hr>
-
-                    <div class="linha"><span>Item 1</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 2</span><span>R$100</span></div>
-                    <div class="linha"><span>Item 3</span><span>R$100</span></div>
-                </div>
-            
-                <hr>
-
-                <div class="linha linha-total"><span>Total</span><span>R$300</span></div>
-                <div class="linha linha-desconto"><span>Valor subtraído</span><span>-R$100</span></div>
-                <div class="linha linha-final"><span>Total a pagar</span><span>R$200</span></div>
-            </div>
-            
-            <div class="botoes-container">
-                <button class="botao cancelar">Cancelar comanda</button>
-                <button class="botao subtrair">Subtrair do total</button>
-                <button class="botao finalizar">Finalizar comanda</button>
-            </div>
-        </div>
-        
-    </div>
-</div> -->
+</div>
 
 <div id="MESAS"></div>
 
 <script>
     $(document).ready(function() {
-    
-    load();
-
-      
-  });
+        load();
+    });
 
     function load() {
         $.ajax({
@@ -177,8 +40,92 @@
                 $('#MESAS').html(data);
             }
         });
-
         
-        setTimeout(load, 3000)
+        setTimeout(load, 3000);
+    }
+
+    $(document).on('click', '.botao-cancelar-caixa', function (e) {
+        e.preventDefault();
+
+        const idDoRes = $(this).data('iddores'); 
+        const idDaMesa = $(this).data('iddamesa');
+        
+        getItensParaCancelamento(idDoRes, idDaMesa);
+    });
+
+    function getItensParaCancelamento(idRes, idMesa) {
+        const getCancelaCaixa = `SRC/getCancelamentoCaixa.php?SCmesaId=${idMesa}&SCempresaId=${idRes}`;
+
+        $.ajax({
+            url: getCancelaCaixa, 
+            type: 'POST',
+            success: function (data) {
+                $('#pedidosACancelarCaixa').html(data);
+            },
+            error: function () {
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao carregar itens para cancelamento!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    }
+
+    $(document).on('click', '.botao-cancelar-item-selecionado', function (e) {
+        e.preventDefault();
+
+        const idDoItem = $(this).data('iddoitem');
+        const idDoRes = $(this).data('iddores'); 
+        const idDaMesa = $(this).data('iddamesa');
+
+        Swal.fire({
+            title: 'Deseja cancelar o item?',
+            text: 'Responda Sim para cancelar o item!', 
+            icon: 'question', 
+            confirmButtonText: 'Sim', 
+            cancelButtonText: 'Não',
+            showCancelButton: true, 
+            customClass: {
+                confirmButton: 'my-confirm-button', 
+                cancelButton: 'my-cancel-button' 
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                cancelarItem(idDoItem).then(() => {
+                    // Após cancelar o item, recarregar os itens para cancelamento
+                    getItensParaCancelamento(idDoRes, idDaMesa);
+                });
+            }
+        });
+    });
+
+    // Função que será chamada ao confirmar
+    function cancelarItem(id) {
+        const idCancelado = id;
+        const putCancelaItem = `SRC/putCancelaItem.php?SCidItemCancelado=${idCancelado}`;
+
+        return $.ajax({ // Retorna o AJAX para que possa ser encadeado
+            url: putCancelaItem, 
+            type: 'POST',
+            success: function () {
+                Swal.fire({
+                    title: 'Sucesso',
+                    text: 'Item cancelado com sucesso', 
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            },
+            error: function () {
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao cancelar item!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
     }
 </script>
+

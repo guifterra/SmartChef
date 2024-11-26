@@ -108,13 +108,15 @@ foreach ($mesas as $mesaID => $mesa) {
         echo "
                 </div>
                 <hr>
-                <div class='linha linha-total'><span>Total</span><span>R$" . number_format($totalPedido, 2, ',', '.') . "</span></div>
-                <div class='linha linha-desconto'><span>Valor subtraído</span><span>-R$" . number_format($desconto, 2, ',', '.') . "</span></div>
+                <div class='linha linha-total'><span>Total dos Itens</span><span>R$" . number_format($totalPedido, 2, ',', '.') . "</span></div>
+                <div class='linha linha-desconto'><span>Valor de Desconto</span><span>-R$" . number_format($desconto, 2, ',', '.') . "</span></div>
                 <div class='linha linha-final'><span>Total a pagar</span><span>R$" . number_format($totalFinal, 2, ',', '.') . "</span></div>
+                <div class='linha linha-final'><span>Total já pago</span><span>R$" . number_format(0, 2, ',', '.') . "</span></div>
             </div>
             <div class='botoes-container'>
-                <button class='botao cancelar'>Cancelar comanda</button>
-                <button class='botao subtrair'>Subtrair do total</button>
+                <button class='botao cancelar botao-cancelar-caixa' data-bs-toggle='modal' data-bs-target='#pedtModalCaixa' data-idDoRes='{$_COOKIE['EMPRESA_ID']}' data-idDaMesa='{$mesaID}'>Cancelar item</button>
+                <button class='botao subtrair'>Pagamento</button>
+                <button class='botao subtrair'>Desconto</button>
                 <button class='botao finalizar'>Finalizar comanda</button>
             </div>
         ";
