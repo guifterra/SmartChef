@@ -182,25 +182,29 @@ main {
             type: 'POST',
             data: formData,
             success: function (response) {
-                
+                // Exibe o alerta de sucesso
                 Swal.fire({
                     title: 'Sucesso!',
-                    text: 'Pedido adicionado ao carrinho com sucesso!', // Mensagem de sucesso
+                    text: 'Pedido adicionado ao carrinho com sucesso!',
                     icon: 'success',
                     confirmButtonText: 'Ok'
+                }).then(() => {
+                    $('#' + formId).closest('.modal').find('.btn-close').click();
+                    $('#' + formId)[0].reset();
                 });
             },
             error: function (xhr, status, error) {
-                
+                // Exibe o alerta de erro
                 Swal.fire({
                     title: 'Erro',
-                    text: 'Erro ao adicionar itens ao carrinho!', // Mensagem de sucesso
+                    text: 'Erro ao adicionar itens ao carrinho!',
                     icon: 'error',
                     confirmButtonText: 'Ok'
                 });
             }
         });
     });
+
 
     $(document).on('click', '.botao-ver-carrinho', function (e) {
         e.preventDefault();

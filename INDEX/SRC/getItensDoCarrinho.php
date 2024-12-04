@@ -63,7 +63,7 @@
                 <div class='col-4 text-end'>
                     <p class='quantidade'><span style='font-weight: bold;'>Quantidade: </span>{$item['quantidade']}</p>
                     <p class='preco'>R$ " . number_format($precoAPagar, 2, ',', '.') . "</p>
-                    <div>
+                    <div class='mb-3'>
                         <button class='btn-acoes btn-adicionar-item' value='{$item['id']}'><a class='adicionar'><i class='bx bx-plus-medical'></i></a></button>
                         <button class='btn-acoes btn-subtrair-item' value='{$item['id']}'><a class='subtrair'><i class='bx bx-minus'></i></a></button>
                         <button class='btn-acoes btn-remover-item' value='{$item['id']}'><a class='remover'><i class='bx bx-trash'></i></a></button>
