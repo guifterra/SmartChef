@@ -65,9 +65,9 @@ if ($result->num_rows > 0) {
 
                     $cardapioId = $item['CARDAPIO_ID'];
 
-                    // Busca o nome do prato na tabela CARDAPIO
+                    // Busca o nome e a categoria do prato na tabela CARDAPIO
                     $cardapioStmt = $con->prepare("
-                        SELECT NOME 
+                        SELECT NOME, CATEGORIA 
                         FROM CARDAPIO 
                         WHERE ID = ?
                     ");
@@ -76,16 +76,24 @@ if ($result->num_rows > 0) {
                     $cardapioResult = $cardapioStmt->get_result();
                     $cardapioData = $cardapioResult->fetch_assoc();
                     $nomePrato = $cardapioData['NOME'];
+                    $categoria = $cardapioData['CATEGORIA'];
 
                     $idDoItem = $item['ID'];
                     $descricao = $item['DESCRICAO'];
                     $quantidade = $item['QUANTIDADE'];
                     $preco = $item['PRECO'];
 
+                    // Verifica se a categoria é "Pagamento", "Desconto" ou "Troco"
+                    if (in_array($categoria, ['Pagamento', 'Desconto', 'Troco'])) {
+                        $textoExibido = "Preço: R$ " . number_format($preco, 2, ',', '.');
+                    } else {
+                        $textoExibido = "Descrição: " . $descricao;
+                    }
+
                     echo "
                         <div class='col-8'>
                             <p class='nome-item'>{$nomePrato}</p>
-                            <p><span style='font-weight: bold;'>Descrição: </span>{$descricao}</p>
+                            <p><span style='font-weight: bold;'>{$textoExibido}</p>
                         </div>
                         <div class='col-4 text-end mb-4'>
                             <p class='quantidade'><span style='font-weight: bold;'>Quantidade: </span>{$quantidade}</p>
@@ -101,13 +109,13 @@ if ($result->num_rows > 0) {
                 echo "<p>Não é possível cancelar nenhum item.</p>";
             }
         } else {
-            echo "Nenhum pedido encontrado para esta comanda.";
+            echo "<p>Nenhum pedido encontrado para esta comanda.</p>";
         }
     } else {
-        echo "Nenhuma comanda encontrada para esta mesa.";
+        echo "<p>Nenhuma comanda encontrada para esta mesa.</p>";
     }
 } else {
     http_response_code(404);
-    echo "Mesa não encontrada.";
+    echo "<p>Mesa não encontrada.</p>";
 }
 ?>

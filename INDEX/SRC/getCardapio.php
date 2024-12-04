@@ -49,9 +49,10 @@ if (isset($_GET['SCempresaId']) && isset($_GET['SCtokenMesa'])) {
                 PI22024.CARDAPIO
             WHERE 
                 EMPRESA_ID = ?
+                AND CATEGORIA NOT IN ('Pagamento', 'Desconto', 'Troco')
             ORDER BY 
                 CATEGORIA, NOME;
-            ");
+        ");
 
             $stmt->bind_param("i", $empresaId);
             $stmt->execute();

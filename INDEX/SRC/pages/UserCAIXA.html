@@ -6,6 +6,18 @@
     .my-cancel-button{
         background-color: red;
     }
+
+    .pagamento{
+        background-color: green;
+    }
+
+    .desconto{
+        background-color: rgb(204, 204, 28);
+    }
+
+    .troco{
+        background-color: chocolate;
+    }
 </style>
 
 <!-- Modal de Cancelamento de Itens -->
@@ -21,6 +33,51 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn botao-fechar" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de pagamento -->
+<div class="modal fade" id="pagamentoModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Registro de pagamento</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2" id="formularioDePagamento"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Desconto -->
+<div class="modal fade" id="descontoModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Registro de desconto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2" id="formularioDeDesconto"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Troco -->
+<div class="modal fade" id="trocoModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cartModalLabel">Registro de Troco</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2" id="formularioDeTroco"></div>
             </div>
         </div>
     </div>
@@ -127,5 +184,191 @@
             }
         });
     }
+
+    $(document).on('click', '.pagamento', function() {
+        let mesaId = $(this).data('mesa-id'); // Obtém o ID da mesa
+
+        // Requisição Ajax para carregar o QR Code da mesa
+        $.ajax({
+            url: 'SRC/getFormularioPagamento.php', // O novo arquivo PHP que gera o QR Code
+            type: 'POST',
+            data: { mesa_id: mesaId }, // Envia o ID da mesa via POST
+            success: function(response) {
+                // Insere o conteúdo do modal na div com id "qrDaMesa"
+                $('#formularioDePagamento').html(response);
+
+                // Exibe o modal
+                $('#pagamentoModal').modal('show');
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire({
+                    title: 'Erro',
+                    text: error.statusText,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.botao-fazer-pagamento', function (e) {
+        e.preventDefault();
+
+        var formId = $(this).data('form-id');
+        var formData = $('#' + formId).serialize();
+
+        // Envia os dados via AJAX
+        $.ajax({
+            url: 'SRC/setPagamentoNaMesa.php',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Exibe o alerta de sucesso
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Pagamento adicionado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    $('#' + formId).closest('.modal').find('.btn-close').click();
+                    $('#' + formId)[0].reset();
+                });
+            },
+            error: function (xhr, status, error) {
+                // Exibe o alerta de erro
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao adicionar o pagamento!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.desconto', function() {
+        let mesaId = $(this).data('mesa-id'); // Obtém o ID da mesa
+
+        // Requisição Ajax para carregar o QR Code da mesa
+        $.ajax({
+            url: 'SRC/getFormularioDesconto.php', // O novo arquivo PHP que gera o QR Code
+            type: 'POST',
+            data: { mesa_id: mesaId }, // Envia o ID da mesa via POST
+            success: function(response) {
+                // Insere o conteúdo do modal na div com id "qrDaMesa"
+                $('#formularioDeDesconto').html(response);
+
+                // Exibe o modal
+                $('#descontoModal').modal('show');
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire({
+                    title: 'Erro',
+                    text: error.statusText,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.botao-fazer-desconto', function (e) {
+        e.preventDefault();
+
+        var formId = $(this).data('form-id');
+        var formData = $('#' + formId).serialize();
+
+        // Envia os dados via AJAX
+        $.ajax({
+            url: 'SRC/setDescontoNaMesa.php',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Exibe o alerta de sucesso
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Desconto adicionado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    $('#' + formId).closest('.modal').find('.btn-close').click();
+                    $('#' + formId)[0].reset();
+                });
+            },
+            error: function (xhr, status, error) {
+                // Exibe o alerta de erro
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao adicionar o desconto!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.troco', function() {
+        let mesaId = $(this).data('mesa-id'); // Obtém o ID da mesa
+
+        // Requisição Ajax para carregar o QR Code da mesa
+        $.ajax({
+            url: 'SRC/getFormularioTroco.php', // O novo arquivo PHP que gera o QR Code
+            type: 'POST',
+            data: { mesa_id: mesaId }, // Envia o ID da mesa via POST
+            success: function(response) {
+                // Insere o conteúdo do modal na div com id "qrDaMesa"
+                $('#formularioDeTroco').html(response);
+
+                // Exibe o modal
+                $('#trocoModal').modal('show');
+            },
+            error: function(error) {
+                console.log(error);
+                Swal.fire({
+                    title: 'Erro',
+                    text: error.statusText,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
+
+    $(document).on('click', '.botao-fazer-troco', function (e) {
+        e.preventDefault();
+
+        var formId = $(this).data('form-id');
+        var formData = $('#' + formId).serialize();
+
+        // Envia os dados via AJAX
+        $.ajax({
+            url: 'SRC/setTrocoNaMesa.php',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                // Exibe o alerta de sucesso
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: 'Troco adicionado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    $('#' + formId).closest('.modal').find('.btn-close').click();
+                    $('#' + formId)[0].reset();
+                });
+            },
+            error: function (xhr, status, error) {
+                // Exibe o alerta de erro
+                Swal.fire({
+                    title: 'Erro',
+                    text: 'Erro ao adicionar o troco!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+    });
 </script>
 
