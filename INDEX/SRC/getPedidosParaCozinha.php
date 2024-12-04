@@ -91,14 +91,28 @@ if (count($pedidoIDs) > 0) {
         ";
 
         foreach ($pedido['Itens'] as $item) {
-            echo "
-                <hr>
-                <p>
-                    <strong>".$item['Nome_Prato']."</strong>: <br>
-                    ".$item['Descricao_Item']." <br>
-                    <strong>Quantidade: </strong> ".$item['Quantidade_Item']."
-                </p>
-            ";
+            // Verifica se a quantidade é zero
+            if ($item['Quantidade_Item'] == 0) {
+                // Exibe o item com estilo para quantidade zero
+                echo "
+                    <hr>
+                    <p>
+                        <strong><span style='color: red; text-decoration: line-through;'>".$item['Nome_Prato']."</span></strong>: <br>
+                        <span style='color: red; text-decoration: line-through;'>".$item['Descricao_Item']."</span> <br>
+                        <span style='color: red; text-decoration: line-through;'><strong>Quantidade: </strong>".$item['Quantidade_Item']."</span>
+                    </p>
+                ";
+            } else {
+                // Exibe o item normalmente
+                echo "
+                    <hr>
+                    <p>
+                        <strong>".$item['Nome_Prato']."</strong>: <br>
+                        ".$item['Descricao_Item']." <br>
+                        <strong>Quantidade: </strong> ".$item['Quantidade_Item']."
+                    </p>
+                ";
+            }
         }
 
         echo "

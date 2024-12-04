@@ -15,14 +15,14 @@
             <div class="titulo">
                 <h3>Funcionários</h3>
             </div>
-            <form action="" class="campos-form-adm">
+            <form method="POST" action="" class="campos-form-adm" id="register-funcionario">
                 <div class="campo">
                     <label for="username">Nome de usuário</label>
-                    <input type="text" id="username">
+                    <input type="text" id="username" name="username">
                 </div>
                 <div class="campo">
                     <label for="role">Função</label>
-                    <select name="role" id="role">
+                    <select name="funcao" id="role">
                         <option value="COZINHA">Cozinha</option>
                         <option value="GARCOM">Garçom</option>
                         <option value="CAIXA">Caixa</option>
@@ -30,11 +30,11 @@
                 </div>
                 <div class="campo">
                     <label for="password">Senha</label>
-                    <input type="password" id="password">
+                    <input type="password" id="password" name="pass">
                 </div>
                 <div class="campo">
                     <label for="repeat-password">Repita a senha</label>
-                    <input type="password" id="repeat-password">
+                    <input type="password" id="repeat-password" name="word">
                 </div>
                 <div class="botoes-form">
                     <button type="submit" class="botao-enviar">Enviar</button>
@@ -93,4 +93,27 @@
     $('.formulario-adm').hide(); // Oculta todos os formulários
     $('#' + formId).fadeIn(400); // Mostra o formulário desejado
 }
+
+
+$('#register-funcionario').on('submit', function (e) {
+    e.preventDefault(); // Evita o comportamento padrão do formulário
+    $.ajax({
+        type: 'POST',
+        url: 'SRC/registrarFuncionario.php',
+        data: $('#register-funcionario').serialize(), // Serializa os dados do formulário
+        success: function (data) {
+            console.log('Sucesso:', data);
+            location.href = "./";
+        },
+        error: function (error) {
+            console.error('Erro:', error);
+            Swal.fire({
+                title: 'Algo não está bem',
+                text: error.responseText,
+                icon: 'error',
+                confirmButtonText: 'Tentar novamente'
+            });
+        }
+    });
+});
 </script>

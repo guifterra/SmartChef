@@ -38,14 +38,14 @@
                     </a>
                 </li>
     
-                <li class="side-item" id="botao-historico">
+                <!-- <li class="side-item" id="botao-historico">
                     <a>
                         <i class='bx bxs-home' ></i>
                         <span class="item-description">
                             Histórico
                         </span>
                     </a>
-                </li>
+                </li> -->
     
                 <li class="side-item" id="botao-administrar">
                     <a>
@@ -97,15 +97,15 @@
         });
     }
 
-    function getHistorico() {
-        $.ajax({
-            url: './SRC/components/historico.html',
-            success: function (data) {
-                $('#main-content').html(data);
-                updateActiveTab('#botao-historico');
-            }
-        });
-    }
+    // function getHistorico() {
+    //     $.ajax({
+    //         url: './SRC/components/historico.html',
+    //         success: function (data) {
+    //             $('#main-content').html(data);
+    //             updateActiveTab('#botao-historico');
+    //         }
+    //     });
+    // }
 
     function getMesas() {
         $.ajax({

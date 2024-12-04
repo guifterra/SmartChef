@@ -1,1 +1,60 @@
-<p>Criar a home aqui ( components / home.html )</p>
+<style>
+@import url(global.css);
+
+.card-container-pedidos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.card-pedidos {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 8px;
+    background-color: var(--branco);
+    box-shadow: 0 4px 8px var(--preto);
+    text-align: center;
+}
+
+.card-pedidos h3 {
+    margin: 0;
+    font-size: 1.9rem;
+    color: var(--verde-escuro);
+}
+
+.card-pedidos p {
+    margin: 5px 0 0;
+    font-size: 1.2rem;
+    color: var(--vermelho-escuro);
+}
+
+</style>
+
+<div id="PEDIDOS"></div>
+
+<script>
+    $(document).ready(function() {
+    
+    load();
+
+      
+  });
+
+    function load() {
+        $.ajax({
+            url: 'SRC/getQtdPedidos.php',
+            success: function (data) {
+                $('#PEDIDOS').html(data);
+            }
+        });
+
+        
+        setTimeout(load, 3000)
+    }
+</script>
