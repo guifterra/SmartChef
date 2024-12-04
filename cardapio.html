@@ -382,6 +382,12 @@ main {
         // Se os parâmetros não forem encontrados, você pode exibir um erro ou definir um valor padrão
         if (!empresaId || !numeroMesa || !tokenMesa) {
             console.error('Parâmetros da mesa não encontrados na URL');
+            Swal.fire({
+                title: 'Erro',
+                text: 'Não é possivel concluir o pedido, seus dados são invalidos!',
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
             return;
         }
 
@@ -447,6 +453,7 @@ main {
         // Se os parâmetros não forem encontrados, você pode exibir um erro ou definir um valor padrão
         if (!empresaId || !numeroMesa || !tokenMesa) {
             console.error('Parâmetros da mesa não encontrados na URL');
+            $('#CARDAPIO_DA_EMPRESA').html("<p class='text-center'>Erro ao carregar cardapio! Seu link é invalido, peça ao Garçom para lhe dar o QR Code de acesso</p>");
             return;
         }
 
