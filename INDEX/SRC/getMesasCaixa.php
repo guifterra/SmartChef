@@ -18,7 +18,8 @@ $mesas = [];
 while ($mesaRow = $mesasResult->fetch_assoc()) {
     $mesas[$mesaRow['Mesa_ID']] = [
         'Numero_da_Mesa' => $mesaRow['Numero_da_Mesa'],
-        'Pedidos' => []
+        'Pedidos' => [],
+        'Total_Mesa' => 0 // Inicializa o total da mesa
     ];
 }
 
@@ -70,10 +71,13 @@ while ($pedido = $pedidoResult->fetch_assoc()) {
         'Valor_Item' => $pedido['Valor_Item']
     ];
 
+    // Adiciona o valor do item ao total do pedido e ao total da mesa
     $mesas[$mesaID]['Pedidos'][$pedidoID]['Total_Pedido'] += $pedido['Valor_Item'] * $pedido['Quantidade_Item'];
+    $mesas[$mesaID]['Total_Mesa'] += $pedido['Valor_Item'] * $pedido['Quantidade_Item'];
 }
 
 echo "<div class='container-grid'>";
+
 // 3. Exibe as mesas e pedidos em formato HTML
 foreach ($mesas as $mesaID => $mesa) {
     echo "
@@ -84,6 +88,7 @@ foreach ($mesas as $mesaID => $mesa) {
             <div class='card-corpo'>
     ";
 
+    // Exibe os pedidos da mesa
     foreach ($mesa['Pedidos'] as $pedidoID => $pedido) {
         echo "
             <div class='card-corpo-infos'>
@@ -93,36 +98,53 @@ foreach ($mesas as $mesaID => $mesa) {
         ";
         
         foreach ($pedido['Itens'] as $item) {
-            echo "
+            // Verifica se a quantidade é zero
+            if ($item['Quantidade_Item'] == 0) {
+                // Aplica estilo para quantidade zero
+                echo "
+                    <div class='linha'>
+                        <span style='color: red; text-decoration: line-through;'>" . htmlspecialchars($item['Nome_Prato']) . " ( ".$item['Quantidade_Item']."x )</span>
+                        <span style='color: red; text-decoration: line-through;'>R$" . number_format($item['Valor_Item'], 2, ',', '.') . "</span>
+                    </div>
+                ";
+            } else {
+                // Exibe normalmente se a quantidade for diferente de zero
+                echo "
                     <div class='linha'>
                         <span>" . htmlspecialchars($item['Nome_Prato']) . " ( ".$item['Quantidade_Item']."x )</span>
                         <span>R$" . number_format($item['Valor_Item'], 2, ',', '.') . "</span>
                     </div>
-            ";
+                ";
+            }
         }
-
-        $totalPedido = $pedido['Total_Pedido'];
-        $desconto = 0; // Substitua este valor conforme necessário
-        $totalFinal = $totalPedido - $desconto;
 
         echo "
                 </div>
-                <hr>
-                <div class='linha linha-total'><span>Total dos Itens</span><span>R$" . number_format($totalPedido, 2, ',', '.') . "</span></div>
-                <div class='linha linha-desconto'><span>Valor de Desconto</span><span>-R$" . number_format($desconto, 2, ',', '.') . "</span></div>
-                <div class='linha linha-final'><span>Total a pagar</span><span>R$" . number_format($totalFinal, 2, ',', '.') . "</span></div>
-                <div class='linha linha-final'><span>Total já pago</span><span>R$" . number_format(0, 2, ',', '.') . "</span></div>
-            </div>
-            <div class='botoes-container'>
-                <button class='botao cancelar botao-cancelar-caixa' data-bs-toggle='modal' data-bs-target='#pedtModalCaixa' data-idDoRes='{$_COOKIE['EMPRESA_ID']}' data-idDaMesa='{$mesaID}'>Cancelar item</button>
-                <button class='botao subtrair'>Pagamento</button>
-                <button class='botao subtrair'>Desconto</button>
-                <button class='botao finalizar'>Finalizar comanda</button>
             </div>
         ";
     }
 
+    // Calcula o total da mesa, desconto e total a pagar
+    $totalMesa = $mesa['Total_Mesa'];
+    $desconto = 0; // Valor de desconto temporário
+    $totalFinal = $totalMesa - $desconto;
+    $totalPago = 0; // Valor pago temporário
+
+    // Exibe os totais e botões para a mesa toda (apenas uma vez por mesa)
     echo "
+                <hr>
+                <div class='px-4'>
+                    <div class='linha linha-total'><span>Total dos Itens</span><span>R$" . number_format($totalMesa, 2, ',', '.') . "</span></div>
+                    <div class='linha linha-desconto'><span>Valor de Desconto</span><span>-R$" . number_format($desconto, 2, ',', '.') . "</span></div>
+                    <div class='linha linha-final'><span>Total a pagar</span><span>R$" . number_format($totalFinal, 2, ',', '.') . "</span></div>
+                    <div class='linha linha-final'><span>Total já pago</span><span>R$" . number_format($totalPago, 2, ',', '.') . "</span></div>
+                </div>
+                <div class='botoes-container'>
+                    <button class='botao cancelar botao-cancelar-caixa' data-bs-toggle='modal' data-bs-target='#pedtModalCaixa' data-idDoRes='{$_COOKIE['EMPRESA_ID']}' data-idDaMesa='{$mesaID}'>Cancelar item</button>
+                    <button class='botao subtrair'>Pagamento</button>
+                    <button class='botao subtrair'>Desconto</button>
+                    <button class='botao finalizar'>Finalizar comanda</button>
+                </div>
             </div>
         </div>
     ";
