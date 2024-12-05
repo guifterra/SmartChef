@@ -370,5 +370,45 @@
             }
         });
     });
+
+    $(document).on('click', '.finalizar', function () {
+    let mesaId = $(this).data('mesa-id'); // Obtém o ID da mesa
+
+    // Requisição Ajax para o fechamento da mesa
+    $.ajax({
+        url: 'SRC/fechamentoDeMesa.php', // O arquivo PHP
+        type: 'POST',
+        data: { idDaMesa: mesaId }, // Envia o ID da mesa via POST
+        success: function (response) {
+            // Verificar se houve sucesso
+            if (response.success) {
+                Swal.fire({
+                    title: 'Sucesso',
+                    text: 'Fechamento de mesa realizado com sucesso!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Erro',
+                    text: response.message,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        },
+        error: function (xhr) {
+            // Captura erros do servidor e exibe mensagem
+            let errorMessage = xhr.responseJSON?.message || "Erro inesperado.";
+            Swal.fire({
+                title: 'Erro',
+                text: errorMessage,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+});
+
 </script>
 

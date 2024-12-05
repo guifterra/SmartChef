@@ -21,7 +21,8 @@ while ($mesaRow = $mesasResult->fetch_assoc()) {
         'Pedidos' => [],
         'Total_Mesa' => 0, // Inicializa o total da mesa para itens comuns
         'Total_Desconto' => 0, // Total de descontos
-        'Total_Pagamento' => 0 // Total já pago
+        'Total_Pagamento' => 0, // Total já pago
+        'Total_Troco' => 0 // Total já pago
     ];
 }
 
@@ -86,6 +87,8 @@ while ($pedido = $pedidoResult->fetch_assoc()) {
         // Total de desconto
         $mesas[$mesaID]['Total_Desconto'] += $valor * $quantidade;
     } elseif ($pedido['Categoria_Prato'] != 'Troco') {
+        $mesas[$mesaID]['Total_Troco'] += $valor * $quantidade;
+    } else {
         // Total normal (não é Pagamento, Desconto nem Troco)
         $mesas[$mesaID]['Pedidos'][$pedidoID]['Total_Pedido'] += $valor * $quantidade;
         $mesas[$mesaID]['Total_Mesa'] += $valor * $quantidade;
@@ -143,6 +146,10 @@ foreach ($mesas as $mesaID => $mesa) {
     $desconto = $mesa['Total_Desconto'];
     $totalFinal = $totalMesa + $desconto;
     $totalPago = $mesa['Total_Pagamento'];
+    $totalTroco = $mesa['Total_Troco'];
+
+    // Novo cálculo: soma de todos os itens
+    $totalResultante = $totalMesa + $desconto + $totalPago + $totalTroco;
 
     // Exibe os totais e botões para a mesa toda (apenas uma vez por mesa)
     echo "
@@ -152,6 +159,7 @@ foreach ($mesas as $mesaID => $mesa) {
                     <div class='linha linha-desconto'><span>Valor de Desconto</span><span>-R$" . number_format($desconto, 2, ',', '.') . "</span></div>
                     <div class='linha linha-final'><span>Total a pagar</span><span>R$" . number_format($totalFinal, 2, ',', '.') . "</span></div>
                     <div class='linha linha-final'><span>Total já pago</span><span>R$" . number_format($totalPago, 2, ',', '.') . "</span></div>
+                    <div class='linha linha-resultante' style='color: red;'><span>Resultante (Total Geral)</span><span>R$" . number_format($totalResultante, 2, ',', '.') . "</span></div>
                 </div>
                 <div class='botoes-container'>
                     <button class='botao cancelar botao-cancelar-caixa' data-bs-toggle='modal' data-bs-target='#pedtModalCaixa' data-idDoRes='{$_COOKIE['EMPRESA_ID']}' data-idDaMesa='{$mesaID}'>Cancelar item</button>
