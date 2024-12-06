@@ -68,7 +68,7 @@ if ($result->num_rows > 0 && isset($_SESSION['SCitems']) && !empty($_SESSION['SC
             $preco = $item['preco'];
 
             // Tratamento de adicionais e alergicos
-            $alergicos = !empty($item['alergicos']) ? "<p><strong>Alergicos:</strong> " . implode(", ", $item['alergicos']) . "</p>" : "";
+            $alergicos = !empty($item['alergicos']) ? "<br><strong>Alergicos:</strong> " . implode(", ", $item['alergicos']) . "" : "";
             $adicionaisTexto = [];
             $adicionaisPrecoTotal = 0;
 
@@ -81,7 +81,7 @@ if ($result->num_rows > 0 && isset($_SESSION['SCitems']) && !empty($_SESSION['SC
                 }
             }
 
-            $adicionais = !empty($adicionaisTexto) ? "<p><strong>Adicionais:</strong> " . implode(", ", $adicionaisTexto) . "</p>" : "";
+            $adicionais = !empty($adicionaisTexto) ? "<br><strong>Adicionais:</strong> " . implode(", ", $adicionaisTexto) . "" : "";
 
             // Atualizar a descrição com alergicos e adicionais
             $descricao .= $alergicos . $adicionais;

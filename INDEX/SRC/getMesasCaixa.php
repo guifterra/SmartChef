@@ -86,7 +86,7 @@ while ($pedido = $pedidoResult->fetch_assoc()) {
     } elseif ($pedido['Categoria_Prato'] == 'Desconto') {
         // Total de desconto
         $mesas[$mesaID]['Total_Desconto'] += $valor * $quantidade;
-    } elseif ($pedido['Categoria_Prato'] != 'Troco') {
+    } elseif ($pedido['Categoria_Prato'] == 'Troco') {
         $mesas[$mesaID]['Total_Troco'] += $valor * $quantidade;
     } else {
         // Total normal (não é Pagamento, Desconto nem Troco)
