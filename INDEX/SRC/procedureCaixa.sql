@@ -15,7 +15,7 @@ BEGIN
     FROM COMANDA
     WHERE MESA_ID = p_idDaMesa;
 
-    -- Construir JSON para o histórico (simplificado para evitar problemas)
+    -- Construir JSON para o histórico
     SET v_historico = JSON_OBJECT(
         'Comanda', (SELECT JSON_OBJECT('ID', ID, 'MesaID', MESA_ID) 
                     FROM COMANDA 
@@ -26,7 +26,9 @@ BEGIN
                         'Itens', (SELECT JSON_ARRAYAGG(JSON_OBJECT(
                                       'ItemID', i.ID, 
                                       'Nome', c.NOME, 
-                                      'Preco', c.PRECO))
+                                      'Descricao', i.DESCRICAO, 
+                                      'Quantidade', i.QUANTIDADE, 
+                                      'Preco', i.PRECO))
                                   FROM ITENS i 
                                   JOIN CARDAPIO c ON i.CARDAPIO_ID = c.ID 
                                   WHERE i.PEDIDO_ID = p.ID)))
@@ -55,4 +57,4 @@ BEGIN
     -- Commitar as mudanças
     COMMIT;
 
-END
+END;

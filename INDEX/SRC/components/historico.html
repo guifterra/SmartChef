@@ -1,1 +1,128 @@
-<p>Criar o histórico aqui ( components / historico.html )</p>
+<div class="container-historico">
+    <h4>Histórico de Mesas</h4>
+    <div class="filtros">
+        <div class="filtro-item">
+            <label for="mesa-select">Mesa:</label>
+            <select id="mesa-select">
+                <option value="">Todas as mesas</option>
+            </select>
+        </div>
+        <div class="filtro-item">
+            <label for="dia">Dia:</label>
+            <input type="number" id="dia" min="1" max="31" placeholder="Todos os dias">
+        </div>
+        <div class="filtro-item">
+            <label for="mes">Mês:</label>
+            <input type="number" id="mes" min="1" max="12" placeholder="Todos os meses">
+        </div>
+        <div class="filtro-item">
+            <label for="ano">Ano:</label>
+            <input type="number" id="ano" placeholder="Todos os anos">
+        </div>
+        <button id="filtrar-historico" class="btn-filtrar">Filtrar</button>
+    </div>
+    <div id="historico-mesas">
+        <!-- Conteúdo do histórico será carregado aqui -->
+    </div>
+</div>
+
+<style>
+    .container-historico {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    .filtros {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 20px;
+        margin-bottom: 20px;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 15px 20px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+    }
+
+    .filtro-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        flex-grow: 1;
+    }
+
+    .filtro-item label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+
+    .filtro-item input,
+    .filtro-item select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        width: 100%;
+        max-width: 180px;
+    }
+
+    .btn-filtrar {
+        padding: 12px 25px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        align-self: flex-end;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-filtrar:hover {
+        background-color: #0056b3;
+    }
+
+    #historico-mesas {
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        loadMesas();
+        loadHistorico();
+
+        $('#filtrar-historico').on('click', function () {
+            const mesa = $('#mesa-select').val();
+            const dia = $('#dia').val() || '';
+            const mes = $('#mes').val() || '';
+            const ano = $('#ano').val() || '';
+
+            loadHistorico(mesa, dia, mes, ano);
+        });
+    });
+
+    // Carregar mesas disponíveis no select
+    function loadMesas() {
+        $.ajax({
+            url: 'SRC/getMesasNumero.php',
+            method: 'GET',
+            success: function (response) {
+                $('#mesa-select').html('<option value="">Todas as mesas</option>' + response);
+            }
+        });
+    }
+
+    // Carregar histórico com base nos filtros
+    function loadHistorico(mesa = '', dia = '', mes = '', ano = '') {
+        $.ajax({
+            url: 'SRC/getHistoricoMesas.php',
+            method: 'GET',
+            data: { mesa, dia, mes, ano },
+            success: function (response) {
+                $('#historico-mesas').html(response);
+            }
+        });
+    }
+</script>
